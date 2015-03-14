@@ -1,0 +1,4 @@
+*.pyc
+*.pyo
+ENV
+frontend/bower_components
