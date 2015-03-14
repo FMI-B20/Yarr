@@ -1,10 +1,10 @@
 Installation
 ============
 
-First, set up MySQL, Python+PIP and [Bower](http://bower.io/). Then:
+First, set up MySQL and Python+PIP. The default setup uses the mysql
+user `root` with an empty password and the database is named `yarr`Then:
 
     $ pip install -r requirements.txt
-    $ cd frontend && bower install
 
 
 Loading Initial Data
