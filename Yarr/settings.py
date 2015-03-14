@@ -89,6 +89,8 @@ USE_TZ = True
 
 APPEND_SLASH = False
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
