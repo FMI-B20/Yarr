@@ -10,6 +10,9 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import dj_database_url
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -68,14 +71,7 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME', 'yarr'),
-        'USER': os.environ.get('DB_USER', 'root'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-        'HOST': os.environ.get('DB_HOST', '127.0.0.1'),
-        'PORT': os.environ.get('DB_PORT', '3306'),
-    }
+    'default': dj_database_url.config(default="mysql://root:@127.0.0.1:3306/yarr")
 }
 
 # Internationalization
@@ -98,3 +94,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "frontend"),
 )
+STATIC_ROOT = STATICFILES_DIRS[0]

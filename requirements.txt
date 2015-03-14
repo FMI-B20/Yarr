@@ -1,6 +1,8 @@
+dj-database-url==0.3.0
 Django==1.7.6
 django-filter==0.9.2
 djangorestframework==3.1.0
+gunicorn==19.3.0
 Markdown==2.6.1
 mysql==0.0.1
 MySQL-python==1.2.5
