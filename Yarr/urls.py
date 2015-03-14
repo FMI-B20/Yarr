@@ -5,8 +5,8 @@ from django.contrib import admin
 
 
 urlpatterns = patterns('',
-    url(r'^$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT, 'path': 'index.html'}),
+    url(r'^$', 'django.views.static.serve', {'document_root': settings.STATICFILES_DIRS[0], 'path': 'index.html'}),
 
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include('main.urls')),
-) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+) + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
