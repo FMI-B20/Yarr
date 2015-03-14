@@ -1,9 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-ng-app="yarr">
     <head>
         <title>Yarr</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <h1>Hello there!</h1>
+        <div class="navbar navbar-default">
+            <div class="container-fluid">
+                <a class="navbar-brand" ui-sref="index">YARR</a>
+                <ul class="nav navbar-nav">
+                    <li ui-sref-active="active"><a href ui-sref="index">Home</a></li>
+                    <li ui-sref-active="active"><a href ui-sref="places">Restaurants</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div ui-view></div>
+        </div>
+
+        <link rel="stylesheet" type="text/css" href="/static/bower_components/bootswatch/superhero/bootstrap.min.css"></link>
+
+        <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/static/bower_components/angular/angular.min.js"></script>
+        <script src="/static/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+        <script src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="/static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+        <!-- Application files -->
+        <script src="/static/js/yarr.js"></script>
+        <script src="/static/js/routes.js"></script>
+
+        <!-- Controllers -->
+
     </body>
 </html>
