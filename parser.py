@@ -9,9 +9,13 @@ headers = {
 # The url for the list of all restaurants here
 search_url = "http://www.restograf.ro/srchpage/?a=&submit.x=25&submit.y=7&submit=Cautare"
 response = requests.get(search_url, headers = headers)
-main_soup = BeautifulSoup(response.text)
 
 print search_url + " : " + str(response.status_code) + " " + str(response.reason)
+
+if response.status_code != 200:
+	exit()
+
+main_soup = BeautifulSoup(response.text)
 
 content = main_soup.body.find('div', attrs={'class' : 'SrchGroupResult'})
 group_soup = BeautifulSoup(str(content))
