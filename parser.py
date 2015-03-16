@@ -72,8 +72,9 @@ for div in group_soup.findAll('div'):
 	print restaurant_cuisine
 
 	# The lat lon are located in a script >.<
-	result_lat = re.search('lat\s*=\s*parseFloat\s*\(\s*\'\s*-?\d*\.{1}\d*\s*\'\s*\)\s*;', restaurant_response.text).group()
-	result_lon = re.search('long\s*=\s*parseFloat\s*\(\s*\'\s*-?\d*\.{1}\d*\s*\'\s*\)\s*;', restaurant_response.text).group()
-	latitude = re.search('-?\d*\.{1}\d*', result_lat).group();
-	longitude = re.search('-?\d*\.{1}\d*', result_lon).group();
+	result_lat = re.search('lat\s*=\s*parseFloat\s*\(\s*\'\s*-?\d+(\.{1}\d*)?\s*\'\s*\)\s*;', restaurant_response.text).group()
+	result_lon = re.search('long\s*=\s*parseFloat\s*\(\s*\'\s*-?\d+(\.{1}\d*)?\s*\'\s*\)\s*;', restaurant_response.text).group()
+	latitude = re.search('-?\d+(\.{1}\d*)?', result_lat).group();
+	longitude = re.search('-?\d+(\.{1}\d*)?', result_lon).group();
 	print latitude + " , " + longitude
+	print "----------------------------"
