@@ -40,41 +40,60 @@ for div in group_soup.findAll('div'):
 	
 	restaurant_soup = BeautifulSoup(restaurant_response.text);
 	main_content = restaurant_soup.find('div', attrs={'id' : 'main_content'})
-	container_divs = main_content.findAll('div', attrs={'style' : 'width:298px; min-height:300px; float:right; margin-left:15px;'})
-	
-	if not container_divs:
-		continue
-	
-	sub_divs = container_divs[0].findAll('div', attrs={'style' : 'width:294px;  min-height:51px; border:solid 1px #EBEBEB; float:left;'})
-	
-	if not sub_divs:
+
+	if main_content is None:
 		continue
 
-	href_divs = sub_divs[0].findAll('div', attrs={'style' : 'min-height:51px; width:283px; float:left; margin:8px 3px 6px 9px;'})
-
-	if not href_divs:
+	container_div = main_content.find('div', attrs={'style' : 'width:298px; min-height:300px; float:right; margin-left:15px;'})
+	
+	if container_div is None:
+		continue
+	
+	sub_div = container_div.find('div', attrs={'style' : 'width:294px;  min-height:51px; border:solid 1px #EBEBEB; float:left;'})
+	
+	if sub_div is None:
 		continue
 
-	restaurant_address = href_divs[0].a.text.encode('cp850', errors='replace').decode('cp850')
+	href_div = sub_div.find('div', attrs={'style' : 'min-height:51px; width:283px; float:left; margin:8px 3px 6px 9px;'})
+
+	if href_div is None:
+		continue
+
+	restaurant_address = href_div.a.text.encode('cp850', errors='replace').decode('cp850')
 	
 	print restaurant_address
 
-	info_divs = main_content.findAll('div', attrs={'style' : 'width:252px; height:220px; float:left; margin-left:10px; line-height:24px;'})
+	info_div = main_content.find('div', attrs={'style' : 'width:252px; height:220px; float:left; margin-left:10px; line-height:24px;'})
 
-	if not info_divs:
+	if info_div is None:
 		continue
 
-	dummy_text =info_divs[0].text
+	dummy_text = info_div.text
 	start = dummy_text.find('Bucatarie:') + len('Bucatarie:')
 	end = dummy_text.find('Dominanta:')
-	restaurant_cuisine = dummy_text[start : end].split('; ')
+	restaurant_cuisine = dummy_text[start : end].split('; ')	
 
+	start = dummy_text.find('Tip') + len('Tip')
+	end = dummy_text.find('Pozitionare')
+	restaurant_type = dummy_text[start : end].split('; ')
+
+	print restaurant_type
 	print restaurant_cuisine
 
 	# The lat lon are located in a script >.<
-	result_lat = re.search('lat\s*=\s*parseFloat\s*\(\s*\'\s*-?\d+(\.{1}\d*)?\s*\'\s*\)\s*;', restaurant_response.text).group()
-	result_lon = re.search('long\s*=\s*parseFloat\s*\(\s*\'\s*-?\d+(\.{1}\d*)?\s*\'\s*\)\s*;', restaurant_response.text).group()
-	latitude = re.search('-?\d+(\.{1}\d*)?', result_lat).group();
-	longitude = re.search('-?\d+(\.{1}\d*)?', result_lon).group();
+	search_lat_variable_result = re.search('lat\s*=\s*parseFloat\s*\(\s*\'\s*-?\d+(\.{1}\d*)?\s*\'\s*\)\s*;', restaurant_response.text)
+
+	if search_lat_variable_result is None:
+		continue
+
+	latitude = re.search('-?\d+(\.{1}\d*)?', search_lat_variable_result.group()).group();
+
+	search_lon_variable_result = re.search('long\s*=\s*parseFloat\s*\(\s*\'\s*-?\d+(\.{1}\d*)?\s*\'\s*\)\s*;', restaurant_response.text)
+	
+	if search_lon_variable_result is None:
+		continue
+
+	longitude = re.search('-?\d+(\.{1}\d*)?', search_lon_variable_result.group()).group()
+
 	print latitude + " , " + longitude
 	print "----------------------------"
