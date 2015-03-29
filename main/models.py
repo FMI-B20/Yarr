@@ -12,10 +12,10 @@ class Cuisine(models.Model):
 
 class Place(models.Model):
     name = models.CharField(max_length=128)
-    address = models.TextField();
-    location_type = models.TextField();
+    address = models.TextField()
+    location_type = models.TextField()
 
-    cuisine = models.ForeignKey(Cuisine)
+    cuisines = models.ManyToManyField(Cuisine)
     
     location_lat = models.FloatField()
     location_lon = models.FloatField()

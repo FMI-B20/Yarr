@@ -71,7 +71,7 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default="mysql://root:@127.0.0.1:3306/yarr")
+    'default': dj_database_url.config(default="mysql://root:Cristi10@127.0.0.1:3306/yarr")
 }
 
 # Internationalization
