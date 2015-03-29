@@ -12,13 +12,13 @@ class Cuisine(models.Model):
 
 class Place(models.Model):
     name = models.CharField(max_length=128)
-    description = models.TextField()
-
-    location_lat = models.FloatField()
-    location_lon = models.FloatField()
+    address = models.TextField();
+    location_type = models.TextField();
 
     cuisine = models.ForeignKey(Cuisine)
-    smoking = models.BooleanField(default=False)
+    
+    location_lat = models.FloatField()
+    location_lon = models.FloatField()
 
     def __unicode__(self):
         return self.name
