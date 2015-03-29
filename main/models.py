@@ -17,7 +17,8 @@ class LocationType(models.Model):
 class Place(models.Model):
     name = models.CharField(max_length=128)
     address = models.TextField()
-    location_type = models.TextField()
+    
+    location_types = models.ManyToManyField(LocationType)
 
     cuisines = models.ManyToManyField(Cuisine)
     
