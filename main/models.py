@@ -2,13 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-
 class Cuisine(models.Model):
     name = models.CharField(max_length=32)
 
     def __unicode__(self):
         return self.name
 
+class LocationType(models.Model):
+    name = models.CharField(max_length=32)
+
+    def __unicode__(self):
+        return self.name
 
 class Place(models.Model):
     name = models.CharField(max_length=128)

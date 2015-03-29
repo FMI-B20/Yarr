@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 from .serializers import UserSerializer, PlaceSerializer
-from .serializers import VisitSerializer, CuisineSerializer
-from .models import Cuisine, Place, Visit
+from .serializers import VisitSerializer, CuisineSerializer, LocationTypeSerializer
+from .models import Cuisine, Place, Visit, LocationType
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -23,3 +23,7 @@ class VisitViewSet(viewsets.ModelViewSet):
 class CuisineViewSet(viewsets.ModelViewSet):
     queryset = Cuisine.objects.all()
     serializer_class = CuisineSerializer
+
+class LocationTypeViewSet(viewsets.ModelViewSet):
+	queryset = LocationType.objects.all()
+	serializer_class = LocationTypeSerializer
