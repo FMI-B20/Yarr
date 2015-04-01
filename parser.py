@@ -1,5 +1,6 @@
 import requests
 from BeautifulSoup import BeautifulSoup
+from main.models import Place,Cuisine,LocationType
 import re
 
 headers = {
@@ -20,6 +21,7 @@ main_soup = BeautifulSoup(response.text)
 content = main_soup.body.find('div', attrs={'class' : 'SrchGroupResult'})
 group_soup = BeautifulSoup(str(content))
 index = 0
+
 for div in group_soup.findAll('div'):
 	anchor = div.span.a
 	restaurant_name = anchor.text.encode('cp850', errors='replace').decode('cp850')
@@ -71,14 +73,14 @@ for div in group_soup.findAll('div'):
 	dummy_text = info_div.text
 	start = dummy_text.find('Bucatarie:') + len('Bucatarie:')
 	end = dummy_text.find('Dominanta:')
-	restaurant_cuisine = dummy_text[start : end].split('; ')	
+	restaurant_cuisines = dummy_text[start : end].split('; ')	
 
-	start = dummy_text.find('Tip') + len('Tip')
+	start = dummy_text.find('Tip:') + len('Tip:')
 	end = dummy_text.find('Pozitionare')
-	restaurant_type = dummy_text[start : end].split('; ')
+	restaurant_types = dummy_text[start : end].split('; ')
 
-	print restaurant_type
-	print restaurant_cuisine
+	print restaurant_types
+	print restaurant_cuisines
 
 	# The lat lon are located in a script >.<
 	search_lat_variable_result = re.search('lat\s*=\s*parseFloat\s*\(\s*\'\s*-?\d+(\.{1}\d*)?\s*\'\s*\)\s*;', restaurant_response.text)
@@ -97,3 +99,33 @@ for div in group_soup.findAll('div'):
 
 	print latitude + " , " + longitude
 	print "----------------------------"
+
+	# Add them into database
+	new_place = Place.objects.filter(name__iexact = restaurant_name).first()
+	if new_place is None:
+		new_place = Place.objects.create(name = restaurant_name, address = restaurant_address, location_lat = latitude, location_lon = longitude);
+	
+	new_place.name = restaurant_name
+	new_place.address = restaurant_address
+	new_place.location_lat = latitude
+	new_place.location_lon = longitude
+	new_place.location_types.clear()
+	new_place.cuisines.clear()
+	
+	for restaurant_type in restaurant_types:
+		existing_type = LocationType.objects.filter(name__iexact = restaurant_type).first()
+		if existing_type is None:
+			existing_type = LocationType.objects.create(name = restaurant_type)
+			existing_type.save()
+		new_place.location_types.add(existing_type)
+
+	for restaurant_cuisine in restaurant_cuisines:
+		existing_cuisine = Cuisine.objects.filter(name__iexact = restaurant_cuisine).first()
+		if existing_cuisine is None:
+			existing_cuisine = Cuisine.objects.create(name = restaurant_cuisine)
+			existing_cuisine.save()
+		new_place.cuisines.add(existing_cuisine)
+
+	new_place.save()
+
+

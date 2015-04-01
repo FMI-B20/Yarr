@@ -20,7 +20,8 @@ class CuisineSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class PlaceSerializer(serializers.HyperlinkedModelSerializer):
-    cuisine = CuisineSerializer()
+   #cuisines = CuisineSerializer()
+   #location_types = LocationTypeSerializer()
 
     class Meta:
         model = Place
