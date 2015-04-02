@@ -1,1 +1,1 @@
-web: DATABASE_URL=$JAWSDB_URL gunicorn Yarr.wsgi --log-file -
+web: gunicorn Yarr.wsgi --log-file -

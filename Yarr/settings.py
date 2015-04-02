@@ -74,6 +74,8 @@ DATABASES = {
     'default': dj_database_url.config(default="mysql://root:@127.0.0.1:3306/yarr")
 }
 
+DATABASES['default']['NAME'] = 'yarr'
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
