@@ -36,4 +36,4 @@ POST data to:
 'http://localhost:8000/rest-auth/login/' {"username": "dragos2", "password": "dragos2"}
 
 More details about the
-[API]['http://django-rest-auth.readthedocs.org/en/latest/api_endpoints.html']
+[API]('http://django-rest-auth.readthedocs.org/en/latest/api_endpoints.html')
