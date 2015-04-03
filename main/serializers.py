@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Place, Visit, Cuisine
+from .models import Place, Visit, Cuisine, LocationType
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -8,6 +8,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ('id', 'url', 'username', 'email', 'is_staff')
 
+class LocationTypeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = LocationType
+        fields = ('name',)
 
 class CuisineSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -16,13 +20,14 @@ class CuisineSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class PlaceSerializer(serializers.HyperlinkedModelSerializer):
-    cuisine = CuisineSerializer()
+   #cuisines = CuisineSerializer()
+   #location_types = LocationTypeSerializer()
 
     class Meta:
         model = Place
         fields = (
-            'id', 'name', 'description', 'location_lat', 'location_lon',
-            'cuisine', 'smoking'
+            'id', 'name', 'address', 'location_types', 'cuisines', 
+            'location_lat', 'location_lon'            
         )
 
 
