@@ -24,6 +24,7 @@ class CuisineViewSet(viewsets.ModelViewSet):
     queryset = Cuisine.objects.all()
     serializer_class = CuisineSerializer
 
+
 class LocationTypeViewSet(viewsets.ModelViewSet):
 	queryset = LocationType.objects.all()
 	serializer_class = LocationTypeSerializer

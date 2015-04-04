@@ -2,7 +2,6 @@
 <html lang="en" data-ng-app="yarr">
     <head>
         <title>Yarr</title>
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
@@ -13,6 +12,9 @@
                     <li ui-sref-active="active"><a href ui-sref="index">Home</a></li>
                     <li ui-sref-active="active"><a href ui-sref="places">Restaurants</a></li>
                 </ul>
+                <ul class="nav navbar-nav pull-right">
+                  <li ui-sref-active="active"><a href ui-sref="login">Login</a></li>
+                </ul>
             </div>
         </div>
 
@@ -21,19 +23,27 @@
         </div>
 
         <link rel="stylesheet" type="text/css" href="/static/bower_components/bootswatch/superhero/bootstrap.min.css"></link>
+        <link rel="stylesheet" type="text/css" href="/static/css/app.css"></link>
 
+        <script src="http://maps.google.com/maps/api/js"></script>
         <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="/static/bower_components/angular/angular.min.js"></script>
         <script src="/static/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+        <script src="/static/bower_components/angular-resource/angular-resource.min.js"></script>
         <script src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
         <script src="/static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="/static/bower_components/angular-django-rest-resource/angular-django-rest-resource.js"></script>
+        <script src="/static/bower_components/ngmap/build/scripts/ng-map.min.js"></script>
 
         <!-- Application files -->
         <script src="/static/js/yarr.js"></script>
         <script src="/static/js/routes.js"></script>
 
         <!-- Controllers -->
+        <script src="/static/js/controllers/index.js"></script>
+        <script src="/static/js/controllers/place.js"></script>
+        <script src="/static/js/resources/place.js"></script>
 
     </body>
 </html>

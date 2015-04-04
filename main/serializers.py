@@ -20,15 +20,13 @@ class CuisineSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class PlaceSerializer(serializers.HyperlinkedModelSerializer):
-   #cuisines = CuisineSerializer()
-   #location_types = LocationTypeSerializer()
-
     class Meta:
         model = Place
         fields = (
-            'id', 'name', 'address', 'location_types', 'cuisines', 
-            'location_lat', 'location_lon'            
+            'id', 'name', 'address', 'location_types', 'cuisines',
+            'location_lat', 'location_lon'
         )
+        depth = 1
 
 
 class VisitSerializer(serializers.HyperlinkedModelSerializer):
