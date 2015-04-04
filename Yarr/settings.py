@@ -31,6 +31,21 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+TEMPLATE_CONTEXT_PROCESSORS = (
+    # Required by `allauth` template tags
+    "django.core.context_processors.request",
+
+    # `allauth` specific context processors
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
+)
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -40,7 +55,17 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # REST Authentication
     'rest_framework',
+    'rest_framework.authtoken',
+
+    'rest_auth',
+    # All auth
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
 
     'main',
 )
@@ -67,6 +92,10 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'main.utils.Pagination',
     'PAGE_SIZE': 20,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
 }
 
 # Database
@@ -116,6 +145,7 @@ USE_TZ = True
 
 APPEND_SLASH = False
 
+SITE_ID = 1
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 STATIC_URL = '/static/'
