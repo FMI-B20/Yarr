@@ -11,12 +11,12 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class LocationTypeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = LocationType
-        fields = ('name',)
+        fields = ('id','name')
 
 class CuisineSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Cuisine
-        fields = ('name',)
+        fields = ('id','name')
 
 
 class PlaceSerializer(serializers.HyperlinkedModelSerializer):

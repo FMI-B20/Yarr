@@ -87,11 +87,11 @@ WSGI_APPLICATION = 'Yarr.wsgi.application'
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE' : 20,
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
-    'DEFAULT_PAGINATION_CLASS': 'main.utils.Pagination',
-    'PAGE_SIZE': 20,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -104,6 +104,8 @@ REST_FRAMEWORK = {
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get("MYSQL_CONNECTION_URL", "mysql://root:@127.0.0.1:3306/yarr"))
 }
+
+DATABASES['default']['NAME'] = 'yarr'
 
 LOGGING = {
     'version': 1,
