@@ -40,17 +40,17 @@ class RecomandationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         cuisines_arg = self.request.QUERY_PARAMS.get('cuisines', None)
-        types_arg = self.request.QUERY_PARAMS.get('location_types', None)
+        types_arg = self.request.QUERY_PARAMS.get('locationtypes', None)
         recommended_queryset = Place.objects.all()
 
         if cuisines_arg is not None:
             cuisines_json_list = json.loads(cuisines_arg)
-            if not cuisines_json_list:
+            if cuisines_json_list:
                 recommended_queryset = recommended_queryset.filter(cuisines__pk__in = cuisines_json_list)            
 
         if types_arg is not None:
-            types_json_list = json.load(types_arg)
-            if not types_json_list:
+            types_json_list = json.loads(types_arg)
+            if types_json_list:
                 recommended_queryset = recommended_queryset.filter(location_types__pk__in = types_json_list)   
         
         return recommended_queryset
