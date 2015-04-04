@@ -58,7 +58,7 @@ INSTALLED_APPS = (
     # REST Authentication
     'rest_framework',
     'rest_framework.authtoken',
-    
+
     'rest_auth',
     # All auth
     'django.contrib.sites',
@@ -91,6 +91,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
+    'DEFAULT_PAGINATION_CLASS': 'main.utils.Pagination',
+    'PAGE_SIZE': 20,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -104,7 +106,28 @@ DATABASES = {
     'default': dj_database_url.config(default=os.environ.get("MYSQL_CONNECTION_URL", "mysql://root:@127.0.0.1:3306"))
 }
 
-DATABASES['default']['NAME'] = 'yarr'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/

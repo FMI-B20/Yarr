@@ -1,0 +1,15 @@
+<div ng-controller="PlaceController" class="row">
+  <div class="col-md-8">
+    <h1>{{ place.name }}</h1>
+    <p>Address: {{ place.address }}</p>
+  </div>
+  <div class="col-md-4">
+
+
+    <map center="{{ [place.location_lat, place.location_lon] }}" zoom="13">
+      <marker
+      position="{{ [place.location_lat, place.location_lon] }}"
+      title="{{ place.name }}"></marker>
+    </map>
+  </div>
+</div>

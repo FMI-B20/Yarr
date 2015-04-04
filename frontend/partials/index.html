@@ -1,1 +1,31 @@
-<h1>Hi there!</h1>
+<div class="row col-md-8 col-md-offset-2" ng-controller="IndexController">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <map center="{{[ places[0].location_lat, places[0].location_lon ]}}" zoom="12">
+        <marker
+          position="[{{ place.location_lat }}, {{ place.location_lon }}]"
+          title="{{ place.name }}"
+          ng-repeat="place in places"></marker>
+      </map>
+    </div>
+  </div>
+  <div class="col-md-6 place-card" ng-repeat="place in places">
+    <div class="panel panel-default">
+      <div class="panel-body" ui-sref="place({ id: place.id })">
+        <span class="pull-right" ng-if="place.rating">
+          <em style="font-size: 24px;">{{ place.rating | number: 1 }}</em>/5
+        </span>
+        <h3 style="margin-top: 0"><a href>{{ place.name }}</a></h3>
+        <p>{{ place.address }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 text-center">
+    <button class="btn btn-default" ng-click="loadMore()" ng-disabled="loading">
+      More results &nbsp;
+      <i class="glyphicon glyphicon-plus" ng-class="{ 'hidden': loading }"></i>
+      <i class="glyphicon glyphicon-refresh fa-spin" ng-class="{ 'hidden': !loading }"></i>
+    </button>
+  </div>
+</div>
