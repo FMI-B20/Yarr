@@ -7,7 +7,7 @@ yarr.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $u
       templateUrl: "/static/partials/index.html"
     })
     .state('places', {
-      url: "/places/",
+      url: "/places/cuisines/:cuisines/locationTypes/:locationTypes/",
       templateUrl: "/static/partials/places.html"
     })
     .state('place', {

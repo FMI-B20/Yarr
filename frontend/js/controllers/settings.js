@@ -1,4 +1,5 @@
-yarr.controller('SettingsController', ['$scope', 'Cuisines', 'LocationTypes', function($scope, Cuisines, LocationTypes) {
+yarr.controller('SettingsController', ['$scope', 'Cuisines', 'LocationTypes', '$location', 
+	function($scope, Cuisines, LocationTypes, $location) {
   
   $scope.cuisines = Cuisines.query();
   $scope.locationTypes = LocationTypes.query();
@@ -22,7 +23,8 @@ yarr.controller('SettingsController', ['$scope', 'Cuisines', 'LocationTypes', fu
 
   	});
 
-  	var newPath = "/places/?cuisines=" + JSON.stringify(cuisinesArr) + "&locationTypes=" + JSON.stringify(locationTypesArr);
+  	var newPath = "/places/cuisines/" + JSON.stringify(cuisinesArr) + "/locationTypes/" + JSON.stringify(locationTypesArr) + "/";
 
+  	$location.path(newPath);
   };
 }]);
