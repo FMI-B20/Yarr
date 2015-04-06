@@ -1,0 +1,7 @@
+<div ng-controller="SettingsController" class="row">
+  <div class="col-md-8">
+    <ul>
+        <li ng-repeat="cuisine in cuisines"><input type="checkbox" value="{{ cuisine.id }}">{{ cuisine.name }}</li>
+    </ul>
+  </div>
+</div>

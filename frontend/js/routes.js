@@ -13,5 +13,9 @@ yarr.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $u
     .state('place', {
       url: "/place/:id/",
       templateUrl: "/static/partials/place.html"
+    })
+    .state('settings', {
+      url: "/settings/",
+      templateUrl: "/static/partials/settings.html"
     });
 }]);
