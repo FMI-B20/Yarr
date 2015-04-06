@@ -1,7 +1,9 @@
 import requests
 from BeautifulSoup import BeautifulSoup
+from BeautifulSoup import UnicodeDammit
 from main.models import Place,Cuisine,LocationType
 import re
+
 
 headers = {
    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'
@@ -24,8 +26,8 @@ index = 0
 
 for div in group_soup.findAll('div'):
 	anchor = div.span.a
-	restaurant_name = anchor.text.encode('cp850', errors='replace').decode('cp850')
-	
+	restaurant_name = anchor.text.encode('utf-8')
+
 	# Restaurant names have (inchis) at the end if it's closed, so we skip it.
 	if restaurant_name.endswith('(inchis)') :
 		continue
@@ -66,7 +68,7 @@ for div in group_soup.findAll('div'):
 	if href_a is None:
 		continue
 
-	restaurant_address = href_a.text.encode('cp850', errors='replace').decode('cp850')
+	restaurant_address = href_a.text.encode('utf-8')
 	
 	print restaurant_address
 
@@ -131,7 +133,6 @@ for div in group_soup.findAll('div'):
 	# Add them into database
 	new_place = Place.objects.filter(name__iexact = restaurant_name, address__iexact = restaurant_address).first()
 	if new_place is None:
-		print "A"
 		new_place = Place.objects.create(name = restaurant_name, address = restaurant_address, location_lat = latitude, location_lon = longitude, image_url = restaurant_image_url);
 	
 	new_place.name = restaurant_name
