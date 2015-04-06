@@ -22,5 +22,7 @@ yarr.controller('SettingsController', ['$scope', 'Cuisines', 'LocationTypes', fu
 
   	});
 
+  	var newPath = "/places/?cuisines=" + JSON.stringify(cuisinesArr) + "&locationTypes=" + JSON.stringify(locationTypesArr);
+
   };
 }]);
