@@ -105,8 +105,6 @@ DATABASES = {
     'default': dj_database_url.config(default=os.environ.get("MYSQL_CONNECTION_URL", "mysql://root:@127.0.0.1:3306/yarr"))
 }
 
-DATABASES['default']['NAME'] = 'yarr'
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
