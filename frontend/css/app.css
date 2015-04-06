@@ -5,6 +5,12 @@
 .place-card:hover {
 }
 
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
 
 .fa-spin {
   -webkit-animation: fa-spin 2s infinite linear;
