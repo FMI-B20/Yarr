@@ -766,6 +766,25 @@
 },
 {
     "fields": {
+        "location_lon": 26.088779568672,
+        "name": "Casa di David",
+        "cuisines": [
+            4
+        ],
+        "location_types": [
+            1
+        ],
+        "location_lat": 44.476742438688,
+        "image_url": "http://www.restograf.ro/wp-content/uploads/2010/12/Casa-di-David-1.jpg",
+        "address": "Soseaua Nordului 9, BUCURESTI",
+        "phone_number1": "0212324715",
+        "phone_number2": null
+    },
+    "model": "main.place",
+    "pk": 17
+},
+{
+    "fields": {
         "location_lon": 26.083973,
         "name": "Casa Doina (La Sosea)",
         "cuisines": [
@@ -985,7 +1004,7 @@
             1
         ],
         "location_lat": 44.494841,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Neagoe Voda 52, BUCURESTI",
         "phone_number1": "0212328796",
         "phone_number2": null
@@ -1302,7 +1321,7 @@
 {
     "fields": {
         "location_lon": 26.097403,
-        "name": "Galleron Grand Caf\u256c\u00f4\u251c\u2562\u252c\u00fa\u256c\u00f4\u251c\u00ab\u251c\u00eb",
+        "name": "Galleron Grand Cafe",
         "cuisines": [
             3
         ],
@@ -1358,8 +1377,8 @@
 },
 {
     "fields": {
-        "location_lon": 26.0762214661,
-        "name": "Hard Rock Caf\u256c\u00f4\u251c\u2562\u252c\u00fa\u256c\u00f4\u251c\u00ab\u251c\u00eb",
+        "location_lon": 26.076221466064,
+        "name": "Hard Rock Cafe",
         "cuisines": [
             9
         ],
@@ -1367,7 +1386,7 @@
             1,
             2
         ],
-        "location_lat": 44.4757625394,
+        "location_lat": 44.475762539387,
         "image_url": "http://www.restograf.ro/wp-content/uploads/2010/12/Hard-Rock-Cafe.jpg",
         "address": "Kiseleff 32 (Parcul Herastrau), BUCURESTI",
         "phone_number1": "0212066261",
@@ -1444,8 +1463,8 @@
             5
         ],
         "location_lat": 44.507248,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
-        "address": "Magazinul IKEA (B?neasa), BUCURESTI",
+        "image_url": "/images/dummy_restaurant.png",
+        "address": "Magazinul IKEA (Baneasa), BUCURESTI",
         "phone_number1": "0214074532",
         "phone_number2": "0746694532"
     },
@@ -1759,15 +1778,15 @@
 },
 {
     "fields": {
-        "location_lon": 26.0720157623,
-        "name": "McMoni?s",
+        "location_lon": 26.072015762329,
+        "name": "McMoni's",
         "cuisines": [
             2
         ],
         "location_types": [
             1
         ],
-        "location_lat": 44.4728916459,
+        "location_lat": 44.472891645933,
         "image_url": "http://www.restograf.ro/wp-content/uploads/2010/12/Poze-McMonis-01.jpg",
         "address": "Primo Nebiolo 1 (Bv. Marasti), BUCURESTI",
         "phone_number1": "0213184638",
@@ -2246,7 +2265,7 @@
         ],
         "location_lat": 44.461636,
         "image_url": "http://www.restograf.ro/wp-content/uploads/2010/12/White-Horse-2.jpg",
-        "address": "Strada George C?linescu 4, BUCURESTI",
+        "address": "Strada George Calinescu 4, BUCURESTI",
         "phone_number1": "0212312795",
         "phone_number2": null
     },
@@ -2313,7 +2332,7 @@
 {
     "fields": {
         "location_lon": 26.110278,
-        "name": "Smart?s",
+        "name": "Smart's",
         "cuisines": [
             4
         ],
@@ -2908,7 +2927,7 @@
 {
     "fields": {
         "location_lon": 26.094563,
-        "name": "High Heels Caf\u256c\u00f4\u251c\u2562\u252c\u00fa\u256c\u00f4\u251c\u00ab\u251c\u00eb (Dorobantilor)",
+        "name": "High Heels Cafe (Dorobantilor)",
         "cuisines": [
             7
         ],
@@ -3491,7 +3510,7 @@
         ],
         "location_lat": 44.442855,
         "image_url": "http://www.restograf.ro/wp-content/uploads/2011/01/Coral-Restaurant-5.jpg",
-        "address": "?oseaua Pantelimon 247, BUCURESTI",
+        "address": "Soseaua Pantelimon 247, BUCURESTI",
         "phone_number1": "0212551080",
         "phone_number2": null
     },
@@ -4925,7 +4944,7 @@
         ],
         "location_lat": 44.41896,
         "image_url": "http://www.restograf.ro/wp-content/uploads/2011/01/Primavara-Parc-Restaurant-6.jpg",
-        "address": "Strada T\u256c\u00f4\u251c\u2562\u252c\u00fa\u0393\u00f6\u00a3\u0393\u00f6\u00e9rgu Neam? 3, BUCURESTI",
+        "address": "Strada Targu Neamt 3, BUCURESTI",
         "phone_number1": "0723332537",
         "phone_number2": null
     },
@@ -5358,7 +5377,7 @@
 {
     "fields": {
         "location_lon": 26.099145,
-        "name": "Edgar?s Pub",
+        "name": "Edgar's Pub",
         "cuisines": [
             4
         ],
@@ -6576,7 +6595,7 @@
             2
         ],
         "location_lat": 44.4663,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Piata Charles de Gaulle 15, BUCURESTI",
         "phone_number1": "0720626262",
         "phone_number2": null
@@ -6653,7 +6672,7 @@
         ],
         "location_lat": 44.425544,
         "image_url": "http://www.restograf.ro/wp-content/uploads/2011/02/snack-attack-alba-iulia.jpg",
-        "address": "Pia?a Alba Iulia 4, BUCURESTI",
+        "address": "Piata Alba Iulia 4, BUCURESTI",
         "phone_number1": "0316200311",
         "phone_number2": null
     },
@@ -7182,7 +7201,7 @@
 },
 {
     "fields": {
-        "location_lon": 26.1289161444,
+        "location_lon": 26.128916144371,
         "name": "Iakos Castro Pub",
         "cuisines": [
             4
@@ -7191,9 +7210,9 @@
             1,
             2
         ],
-        "location_lat": 44.4315274589,
+        "location_lat": 44.431527458883,
         "image_url": "http://www.restograf.ro/wp-content/uploads/2011/02/Iakos-4.jpg",
-        "address": "Intrarea ?tafetei 1, BUCURESTI",
+        "address": "Intrarea Stafetei 1, BUCURESTI",
         "phone_number1": "0213200029",
         "phone_number2": null
     },
@@ -7727,7 +7746,7 @@
             1
         ],
         "location_lat": 44.423664,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Drumul Taberei 32, BUCURESTI",
         "phone_number1": "0722886151",
         "phone_number2": null
@@ -7765,7 +7784,7 @@
             1
         ],
         "location_lat": 44.450576,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Soseaua Colentina 1, BUCURESTI",
         "phone_number1": "0734382419",
         "phone_number2": null
@@ -8072,7 +8091,7 @@
             4
         ],
         "location_lat": 44.431011,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Strada Covaci 3, BUCURESTI",
         "phone_number1": "0213171741",
         "phone_number2": "0757557291"
@@ -8149,7 +8168,7 @@
             2
         ],
         "location_lat": 44.42917,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Bulevardul Decebal 9, BUCURESTI",
         "phone_number1": "0213214553",
         "phone_number2": "072870563"
@@ -8332,15 +8351,15 @@
 },
 {
     "fields": {
-        "location_lon": 26.0707846284,
-        "name": "Calise (Marcon Calis\u256c\u00f4\u251c\u2562\u252c\u00fa\u256c\u00f4\u251c\u00ab\u251c\u00eb)",
+        "location_lon": 26.070784628391,
+        "name": "Calise (Marcon Calise)",
         "cuisines": [
             2
         ],
         "location_types": [
             1
         ],
-        "location_lat": 44.4397838724,
+        "location_lat": 44.439783872437,
         "image_url": "http://www.restograf.ro/wp-content/uploads/2011/02/restaurant-marcon-calise-regie-bucuresti-00128.jpg",
         "address": "Constantin Noica 140, BUCURESTI",
         "phone_number1": "0213164326",
@@ -8707,7 +8726,7 @@
             3
         ],
         "location_lat": 44.451904,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Nicolae Titulescu 1, BUCURESTI",
         "phone_number1": "0730608888",
         "phone_number2": null
@@ -9091,7 +9110,7 @@
             2
         ],
         "location_lat": 44.431879,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Lipscani 53, BUCURESTI",
         "phone_number1": "",
         "phone_number2": null
@@ -9110,7 +9129,7 @@
             2
         ],
         "location_lat": 44.43045,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Smardan 28, BUCURESTI",
         "phone_number1": "0213126000",
         "phone_number2": "0723000011"
@@ -9129,7 +9148,7 @@
             1
         ],
         "location_lat": 44.430158042867,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Franceza 15, BUCURESTI",
         "phone_number1": "0722259360",
         "phone_number2": null
@@ -9148,7 +9167,7 @@
             2
         ],
         "location_lat": 44.432634,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Smardan 7, BUCURESTI",
         "phone_number1": "0749057773",
         "phone_number2": null
@@ -9167,7 +9186,7 @@
             4
         ],
         "location_lat": 44.454584,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Calea Dorobantilor 111-131, BUCURESTI",
         "phone_number1": "0769069641",
         "phone_number2": null
@@ -9186,7 +9205,7 @@
             2
         ],
         "location_lat": 44.43045,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Smardan 28, BUCURESTI",
         "phone_number1": "0213121117",
         "phone_number2": null
@@ -9205,7 +9224,7 @@
             2
         ],
         "location_lat": 44.432316,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Smardan 11, BUCURESTI",
         "phone_number1": "0213139315",
         "phone_number2": null
@@ -9224,7 +9243,7 @@
             2
         ],
         "location_lat": 44.431047,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Strada Franceza 6, BUCURESTI",
         "phone_number1": "0213124013",
         "phone_number2": "0723389347"
@@ -9243,7 +9262,7 @@
             1
         ],
         "location_lat": 44.430449,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Selari 9-11, BUCURESTI",
         "phone_number1": "0748881084",
         "phone_number2": null
@@ -9262,7 +9281,7 @@
             2
         ],
         "location_lat": 44.431061,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Selari 28, BUCURESTI",
         "phone_number1": "0726830161",
         "phone_number2": null
@@ -9281,7 +9300,7 @@
             2
         ],
         "location_lat": 44.430449,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Selari 9-11, BUCURESTI",
         "phone_number1": "0724333233",
         "phone_number2": null
@@ -9321,7 +9340,7 @@
             2
         ],
         "location_lat": 44.430814,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Selari 5, BUCURESTI",
         "phone_number1": "0213192758",
         "phone_number2": null
@@ -9341,7 +9360,7 @@
             2
         ],
         "location_lat": 44.431925,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Lipscani 43, BUCURESTI",
         "phone_number1": "0736447940",
         "phone_number2": null
@@ -9360,7 +9379,7 @@
             2
         ],
         "location_lat": 44.43258,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Blanari 21, BUCURESTI",
         "phone_number1": "0213111992",
         "phone_number2": "0723886371"
@@ -9379,7 +9398,7 @@
             2
         ],
         "location_lat": 44.432552,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Blanari 9, BUCURESTI",
         "phone_number1": "0213106959",
         "phone_number2": null
@@ -9417,7 +9436,7 @@
             2
         ],
         "location_lat": 44.430539,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Covaci 12, BUCURESTI",
         "phone_number1": "0726767611",
         "phone_number2": null
@@ -9436,7 +9455,7 @@
             2
         ],
         "location_lat": 44.430402,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Covaci 19, BUCURESTI",
         "phone_number1": "0213103261",
         "phone_number2": null
@@ -9455,7 +9474,7 @@
             1
         ],
         "location_lat": 44.416728,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Str. Fabrica de Chibrituri 2, BUCURESTI",
         "phone_number1": "0213374567",
         "phone_number2": null
@@ -9474,7 +9493,7 @@
             1
         ],
         "location_lat": 44.430672,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Strada Soarelui 3-5, BUCURESTI",
         "phone_number1": "0721488178",
         "phone_number2": "0721026050"
@@ -9493,7 +9512,7 @@
             1
         ],
         "location_lat": 44.431607,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Gabroveni 1-3, BUCURESTI",
         "phone_number1": "0720990110",
         "phone_number2": null
@@ -9551,7 +9570,7 @@
             2
         ],
         "location_lat": 44.43292,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Eugeniu Carada 5-7, BUCURESTI",
         "phone_number1": "0764485486",
         "phone_number2": null
@@ -10282,7 +10301,7 @@
             1
         ],
         "location_lat": 44.429129,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Strada Olteni 3, BUCURESTI",
         "phone_number1": "0213203269",
         "phone_number2": null
@@ -10625,7 +10644,7 @@
             1
         ],
         "location_lat": 44.434561,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Strada Ametistului 2, BUCURESTI",
         "phone_number1": "0764670677",
         "phone_number2": null
@@ -11195,7 +11214,7 @@
             2
         ],
         "location_lat": 44.479578,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Bv. Poligrafiei 1, BUCURESTI",
         "phone_number1": "0212240034",
         "phone_number2": null
@@ -11923,7 +11942,7 @@
             1
         ],
         "location_lat": 44.430347602379,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Bulevardul Timisoara 26, BUCURESTI",
         "phone_number1": "0727356438",
         "phone_number2": null
@@ -13614,7 +13633,7 @@
             2
         ],
         "location_lat": 44.431283,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Strada Lucretiu Patrascanu 1, BUCURESTI",
         "phone_number1": "0771565459",
         "phone_number2": null
@@ -13634,7 +13653,7 @@
             2
         ],
         "location_lat": 44.427068,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Turturelelor 11, BUCURESTI",
         "phone_number1": "0213226610",
         "phone_number2": null
@@ -13654,7 +13673,7 @@
             2
         ],
         "location_lat": 44.419085,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Calea Rahovei 196, BUCURESTI",
         "phone_number1": "0724588534",
         "phone_number2": null
@@ -13749,7 +13768,7 @@
             2
         ],
         "location_lat": 44.450952,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Calea Victoriei 155, BUCURESTI",
         "phone_number1": "0311059024",
         "phone_number2": null
@@ -15126,7 +15145,7 @@
             2
         ],
         "location_lat": 44.436669,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Nicolae Balcescu 2, BUCURESTI",
         "phone_number1": "0721900842",
         "phone_number2": null
@@ -15145,7 +15164,7 @@
             2
         ],
         "location_lat": 44.438919,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Lacul Tineretului, BUCURESTI",
         "phone_number1": "0213263828",
         "phone_number2": null
@@ -15165,7 +15184,7 @@
             2
         ],
         "location_lat": 44.425503,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Splaiul Unirii 6, BUCURESTI",
         "phone_number1": "0374045555",
         "phone_number2": "0751133133"
@@ -15682,7 +15701,7 @@
             4
         ],
         "location_lat": 44.437887,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Arcului 4, BUCURESTI",
         "phone_number1": "0746089041",
         "phone_number2": null
@@ -15835,7 +15854,7 @@
             1
         ],
         "location_lat": 44.424032,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Nerva Traian nr. 3, BUCURESTI",
         "phone_number1": "0212006270",
         "phone_number2": null
@@ -15988,7 +16007,7 @@
             1
         ],
         "location_lat": 44.438196264856,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Intrarea Spatarului 4, BUCURESTI",
         "phone_number1": "0213172265",
         "phone_number2": "0740257595"
@@ -16236,7 +16255,7 @@
             1
         ],
         "location_lat": 44.50216,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Gheorghe Ionescu Sisesti 23, BUCURESTI",
         "phone_number1": "0212694115",
         "phone_number2": null
@@ -16293,7 +16312,7 @@
             1
         ],
         "location_lat": 44.447786366486,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Occidentului 2, BUCURESTI",
         "phone_number1": "0314328770",
         "phone_number2": null
@@ -18432,7 +18451,7 @@
         ],
         "location_lat": 44.415045,
         "image_url": "http://www.restograf.ro/wp-content/uploads/2013/03/Restaurant-turcesc-Clasis-Viilor-Bucuresti-exterior-1.jpg",
-        "address": "?os. Viilor 27, BUCURESTI",
+        "address": "Sos. Viilor 27, BUCURESTI",
         "phone_number1": "0213352181",
         "phone_number2": "0721503011"
     },
@@ -18469,7 +18488,7 @@
             1
         ],
         "location_lat": 44.45348,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Londra 5, BUCURESTI",
         "phone_number1": "0736933531",
         "phone_number2": null
@@ -19234,7 +19253,7 @@
             1
         ],
         "location_lat": 44.448309,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Viitorului 117-119, BUCURESTI",
         "phone_number1": "0729035750",
         "phone_number2": "0742817279"
@@ -19424,7 +19443,7 @@
             1
         ],
         "location_lat": 44.407555,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Secerei 10, BUCURESTI",
         "phone_number1": "0749271476",
         "phone_number2": "0742222290"
@@ -19462,7 +19481,7 @@
             1
         ],
         "location_lat": 44.431214,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Mihai Bravu 200, BUCURESTI",
         "phone_number1": "0314325000",
         "phone_number2": null
@@ -20762,7 +20781,7 @@
             2
         ],
         "location_lat": 44.432505,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Blanari 1, BUCURESTI",
         "phone_number1": "0744888780",
         "phone_number2": null
@@ -20781,7 +20800,7 @@
             1
         ],
         "location_lat": 44.417308,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Morilor 46, BUCURESTI",
         "phone_number1": "0786153114",
         "phone_number2": "0722598580"
@@ -20860,7 +20879,7 @@
             1
         ],
         "location_lat": 44.431547,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Gabroveni 3, BUCURESTI",
         "phone_number1": "0314311814",
         "phone_number2": null
@@ -25254,7 +25273,7 @@
             2
         ],
         "location_lat": 44.438884,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Pache Protopopescu 59, BUCURESTI",
         "phone_number1": "0760444424",
         "phone_number2": "0213226566"
@@ -25273,7 +25292,7 @@
             1
         ],
         "location_lat": 44.423999,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
+        "image_url": "/images/dummy_restaurant.png",
         "address": "Bv. Burebista 2, Bl. D14 (Piata Alba Iulia), BUCURESTI",
         "phone_number1": "0723533664",
         "phone_number2": null
@@ -25896,293 +25915,6 @@
     },
     "model": "main.place",
     "pk": 1328
-},
-{
-    "fields": {
-        "location_lon": 26.088779568672,
-        "name": "Casa di David",
-        "cuisines": [
-            4
-        ],
-        "location_types": [
-            1
-        ],
-        "location_lat": 44.476742438688,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2010/12/Casa-di-David-1.jpg",
-        "address": "\u0218oseaua Nordului 9, BUCURESTI",
-        "phone_number1": "0212324715",
-        "phone_number2": null
-    },
-    "model": "main.place",
-    "pk": 1329
-},
-{
-    "fields": {
-        "location_lon": 26.097403,
-        "name": "Galleron Grand Caf\u00e9",
-        "cuisines": [
-            3
-        ],
-        "location_types": [
-            2
-        ],
-        "location_lat": 44.442063,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2010/12/Galleron.jpg",
-        "address": "Nicolae Golescu 18, BUCURESTI",
-        "phone_number1": "0213124565",
-        "phone_number2": null
-    },
-    "model": "main.place",
-    "pk": 1330
-},
-{
-    "fields": {
-        "location_lon": 26.076221466064,
-        "name": "Hard Rock Caf\u00e9",
-        "cuisines": [
-            9
-        ],
-        "location_types": [
-            1,
-            2
-        ],
-        "location_lat": 44.475762539387,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2010/12/Hard-Rock-Cafe.jpg",
-        "address": "Kiseleff 32 (Parcul Herastrau), BUCURESTI",
-        "phone_number1": "0212066261",
-        "phone_number2": null
-    },
-    "model": "main.place",
-    "pk": 1331
-},
-{
-    "fields": {
-        "location_lon": 26.085577,
-        "name": "Ikea",
-        "cuisines": [
-            15
-        ],
-        "location_types": [
-            5
-        ],
-        "location_lat": 44.507248,
-        "image_url": "/img/Arici-pt-poze-implicite.jpg",
-        "address": "Magazinul IKEA (B\u0103neasa), BUCURESTI",
-        "phone_number1": "0214074532",
-        "phone_number2": "0746694532"
-    },
-    "model": "main.place",
-    "pk": 1332
-},
-{
-    "fields": {
-        "location_lon": 26.072015762329,
-        "name": "McMoni\u2019s",
-        "cuisines": [
-            2
-        ],
-        "location_types": [
-            1
-        ],
-        "location_lat": 44.472891645933,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2010/12/Poze-McMonis-01.jpg",
-        "address": "Primo Nebiolo 1 (Bv. Marasti), BUCURESTI",
-        "phone_number1": "0213184638",
-        "phone_number2": "0213184639"
-    },
-    "model": "main.place",
-    "pk": 1333
-},
-{
-    "fields": {
-        "location_lon": 26.095607,
-        "name": "White Horse",
-        "cuisines": [
-            2
-        ],
-        "location_types": [
-            1
-        ],
-        "location_lat": 44.461636,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2010/12/White-Horse-2.jpg",
-        "address": "Strada George C\u0103linescu 4, BUCURESTI",
-        "phone_number1": "0212312795",
-        "phone_number2": null
-    },
-    "model": "main.place",
-    "pk": 1334
-},
-{
-    "fields": {
-        "location_lon": 26.110278,
-        "name": "Smart\u2019s",
-        "cuisines": [
-            4
-        ],
-        "location_types": [
-            1
-        ],
-        "location_lat": 44.441884,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2010/12/Smarts-1.jpg",
-        "address": "Alexandru Donici 3, BUCURESTI",
-        "phone_number1": "0212119035",
-        "phone_number2": null
-    },
-    "model": "main.place",
-    "pk": 1335
-},
-{
-    "fields": {
-        "location_lon": 26.094563,
-        "name": "High Heels Caf\u00e9 (Dorobantilor)",
-        "cuisines": [
-            7
-        ],
-        "location_types": [
-            2
-        ],
-        "location_lat": 44.460931,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2010/12/Cafena-High-Heels-in-Piata-Dorobantilor-din-Bucuresti-1.jpg",
-        "address": "Aviator Radu Beller 4, BUCURESTI",
-        "phone_number1": "0720046834",
-        "phone_number2": "0212307040"
-    },
-    "model": "main.place",
-    "pk": 1336
-},
-{
-    "fields": {
-        "location_lon": 26.158923,
-        "name": "Coral",
-        "cuisines": [
-            2
-        ],
-        "location_types": [
-            1
-        ],
-        "location_lat": 44.442855,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2011/01/Coral-Restaurant-5.jpg",
-        "address": "\u0218oseaua Pantelimon 247, BUCURESTI",
-        "phone_number1": "0212551080",
-        "phone_number2": null
-    },
-    "model": "main.place",
-    "pk": 1337
-},
-{
-    "fields": {
-        "location_lon": 26.02697,
-        "name": "Primavara Parc (Moghioros)",
-        "cuisines": [
-            4
-        ],
-        "location_types": [
-            1
-        ],
-        "location_lat": 44.41896,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2011/01/Primavara-Parc-Restaurant-6.jpg",
-        "address": "Strada T\u00e2rgu Neam\u0163 3, BUCURESTI",
-        "phone_number1": "0723332537",
-        "phone_number2": null
-    },
-    "model": "main.place",
-    "pk": 1338
-},
-{
-    "fields": {
-        "location_lon": 26.099145,
-        "name": "Edgar\u2019s Pub",
-        "cuisines": [
-            4
-        ],
-        "location_types": [
-            2
-        ],
-        "location_lat": 44.435587,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2011/01/Edgars-Pub.jpg",
-        "address": "Edgar Quinet 9, BUCURESTI",
-        "phone_number1": "0213141843",
-        "phone_number2": null
-    },
-    "model": "main.place",
-    "pk": 1339
-},
-{
-    "fields": {
-        "location_lon": 26.129915,
-        "name": "Snack Attack (Piata Alba Iulia)",
-        "cuisines": [
-            3
-        ],
-        "location_types": [
-            5
-        ],
-        "location_lat": 44.425544,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2011/02/snack-attack-alba-iulia.jpg",
-        "address": "Pia\u021ba Alba Iulia 4, BUCURESTI",
-        "phone_number1": "0316200311",
-        "phone_number2": null
-    },
-    "model": "main.place",
-    "pk": 1340
-},
-{
-    "fields": {
-        "location_lon": 26.128916144371,
-        "name": "Iakos Castro Pub",
-        "cuisines": [
-            4
-        ],
-        "location_types": [
-            1,
-            2
-        ],
-        "location_lat": 44.431527458883,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2011/02/Iakos-4.jpg",
-        "address": "Intrarea \u0218tafetei 1, BUCURESTI",
-        "phone_number1": "0213200029",
-        "phone_number2": null
-    },
-    "model": "main.place",
-    "pk": 1341
-},
-{
-    "fields": {
-        "location_lon": 26.070784628391,
-        "name": "Calise (Marcon Calis\u00e9)",
-        "cuisines": [
-            2
-        ],
-        "location_types": [
-            1
-        ],
-        "location_lat": 44.439783872437,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2011/02/restaurant-marcon-calise-regie-bucuresti-00128.jpg",
-        "address": "Constantin Noica 140, BUCURESTI",
-        "phone_number1": "0213164326",
-        "phone_number2": "0744432111"
-    },
-    "model": "main.place",
-    "pk": 1342
-},
-{
-    "fields": {
-        "location_lon": 26.085123,
-        "name": "Clasis",
-        "cuisines": [
-            13
-        ],
-        "location_types": [
-            1
-        ],
-        "location_lat": 44.415045,
-        "image_url": "http://www.restograf.ro/wp-content/uploads/2013/03/Restaurant-turcesc-Clasis-Viilor-Bucuresti-exterior-1.jpg",
-        "address": "\u0218os. Viilor 27, BUCURESTI",
-        "phone_number1": "0213352181",
-        "phone_number2": "0721503011"
-    },
-    "model": "main.place",
-    "pk": 1343
 },
 {
     "fields": {

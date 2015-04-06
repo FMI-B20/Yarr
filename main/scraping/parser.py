@@ -1,8 +1,9 @@
 import requests
 from BeautifulSoup import BeautifulSoup
-from BeautifulSoup import UnicodeDammit
+from unidecode import unidecode
 from main.models import Place,Cuisine,LocationType
 import re
+# -*- coding: utf-8 -*-
 
 
 headers = {
@@ -26,13 +27,16 @@ index = 0
 
 for div in group_soup.findAll('div'):
 	anchor = div.span.a
-	restaurant_name = anchor.text.encode('utf-8')
+	restaurant_name = unidecode(anchor.text)
 
 	# Restaurant names have (inchis) at the end if it's closed, so we skip it.
 	if restaurant_name.endswith('(inchis)') :
 		continue
 	
 	index = index + 1
+
+	#if anchor.get('href') != 'http://www.restograf.ro/restaurant-hard-rock-cafe-bucuresti/':
+		#continue
 
 	restaurant_response = requests.get(anchor.get('href'), headers = headers)
 	print anchor.get('href') + " : " + str(restaurant_response.status_code) + " " + str(response.reason)
@@ -68,7 +72,7 @@ for div in group_soup.findAll('div'):
 	if href_a is None:
 		continue
 
-	restaurant_address = href_a.text.encode('utf-8')
+	restaurant_address = unidecode(href_a.text)
 	
 	print restaurant_address
 
@@ -81,7 +85,7 @@ for div in group_soup.findAll('div'):
 
 	img_container_div = main_content.find('div', attrs={'style' : 'width:284px; height:206px; border-bottom:solid 8px #ECECEC; border-top:solid 8px #ECECEC; border-left:solid 6px #ECECEC; border-right:solid 6px #ECECEC; float:left; margin-left:5px;'})
 
-	restaurant_image_url = "images/dummy_restaurant.png"
+	restaurant_image_url = None
 	
 	if img_container_div is not None:
 		img_sub_div = img_container_div.find('div', attrs={'style' : 'overflow:hidden; width:284px; height:206px;'})
@@ -93,6 +97,9 @@ for div in group_soup.findAll('div'):
 			if img_node is not None and img_node.has_key('src'):
 				restaurant_image_url = img_node['src']
 
+	if restaurant_image_url is None or restaurant_image_url == '/img/Arici-pt-poze-implicite.jpg':
+		restaurant_image_url = '/images/dummy_restaurant.png'
+
 	print restaurant_image_url
 
 	info_div = main_content.find('div', attrs={'style' : 'width:252px; height:220px; float:left; margin-left:10px; line-height:24px;'})
@@ -103,11 +110,11 @@ for div in group_soup.findAll('div'):
 	dummy_text = info_div.text
 	start = dummy_text.find('Bucatarie:') + len('Bucatarie:')
 	end = dummy_text.find('Dominanta:')
-	restaurant_cuisines = dummy_text[start : end].split('; ')	
+	restaurant_cuisines = unidecode(dummy_text[start : end]).split('; ')	
 
 	start = dummy_text.find('Tip:') + len('Tip:')
 	end = dummy_text.find('Pozitionare')
-	restaurant_types = dummy_text[start : end].split('; ')
+	restaurant_types = unidecode(dummy_text[start : end]).split('; ')
 
 	print restaurant_types
 	print restaurant_cuisines
