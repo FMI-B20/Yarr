@@ -31,7 +31,7 @@ for div in group_soup.findAll('div'):
 		continue
 	
 	index = index + 1
-	
+
 	restaurant_response = requests.get(anchor.get('href'), headers = headers)
 	print anchor.get('href') + " : " + str(restaurant_response.status_code) + " " + str(response.reason)
 	
@@ -61,9 +61,37 @@ for div in group_soup.findAll('div'):
 	if href_div is None:
 		continue
 
-	restaurant_address = href_div.a.text.encode('cp850', errors='replace').decode('cp850')
+	href_a = href_div.find('a')
+
+	if href_a is None:
+		continue
+
+	restaurant_address = href_a.text.encode('cp850', errors='replace').decode('cp850')
 	
 	print restaurant_address
+
+	phone_number_p = href_div.find('p', attrs={'style' : 'line-height:21px;'})
+	phone_numbers = []
+	if phone_number_p is not None:
+		phone_numbers = "".join(phone_number_p.text.split()).replace('.','').split(',')
+
+	print phone_numbers
+
+	img_container_div = main_content.find('div', attrs={'style' : 'width:284px; height:206px; border-bottom:solid 8px #ECECEC; border-top:solid 8px #ECECEC; border-left:solid 6px #ECECEC; border-right:solid 6px #ECECEC; float:left; margin-left:5px;'})
+
+	restaurant_image_url = "images/dummy_restaurant.png"
+	
+	if img_container_div is not None:
+		img_sub_div = img_container_div.find('div', attrs={'style' : 'overflow:hidden; width:284px; height:206px;'})
+		img_anchor = img_sub_div.find('a')
+		if img_anchor is not None and img_anchor.has_key('href'):
+			restaurant_image_url = img_anchor['href']
+		else:
+			img_node = img_anchor.find('img')
+			if img_node is not None and img_node.has_key('src'):
+				restaurant_image_url = img_node['src']
+
+	print restaurant_image_url
 
 	info_div = main_content.find('div', attrs={'style' : 'width:252px; height:220px; float:left; margin-left:10px; line-height:24px;'})
 
@@ -101,14 +129,24 @@ for div in group_soup.findAll('div'):
 	print "----------------------------"
 
 	# Add them into database
-	new_place = Place.objects.filter(name__iexact = restaurant_name).first()
+	new_place = Place.objects.filter(name__iexact = restaurant_name, address__iexact = restaurant_address).first()
 	if new_place is None:
-		new_place = Place.objects.create(name = restaurant_name, address = restaurant_address, location_lat = latitude, location_lon = longitude);
+		print "A"
+		new_place = Place.objects.create(name = restaurant_name, address = restaurant_address, location_lat = latitude, location_lon = longitude, image_url = restaurant_image_url);
 	
 	new_place.name = restaurant_name
 	new_place.address = restaurant_address
 	new_place.location_lat = latitude
 	new_place.location_lon = longitude
+	
+	if (len(phone_numbers) > 0):
+		new_place.phone_number1 = phone_numbers[0]
+
+	if (len(phone_numbers) > 1):
+		new_place.phone_number2 = phone_numbers[1]
+
+	new_place.image_url = restaurant_image_url
+
 	new_place.location_types.clear()
 	new_place.cuisines.clear()
 	
@@ -125,7 +163,6 @@ for div in group_soup.findAll('div'):
 			existing_cuisine = Cuisine.objects.create(name = restaurant_cuisine)
 			existing_cuisine.save()
 		new_place.cuisines.add(existing_cuisine)
-
 	new_place.save()
 
 
