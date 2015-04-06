@@ -23,8 +23,8 @@ class PlaceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Place
         fields = (
-            'id', 'name', 'address', 'location_types', 'cuisines',
-            'location_lat', 'location_lon'
+            'id', 'name', 'address', 'phone_number1', 'phone_number2', 'location_types', 'cuisines', 
+            'location_lat', 'location_lon', 'image_url'
         )
         depth = 1
 
