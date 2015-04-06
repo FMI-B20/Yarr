@@ -1,5 +1,5 @@
-from rest_framework.pagination import PageNumberPagination, Response
+from rest_framework.pagination import LimitOffsetPagination, Response
 
-class Pagination(PageNumberPagination):
+class Pagination(LimitOffsetPagination):
     def get_paginated_response(self, data):
         return Response(data)
