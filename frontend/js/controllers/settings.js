@@ -15,7 +15,7 @@ yarr.controller('SettingsController', ['$scope', 'Cuisines', 'LocationTypes', fu
 
   	//selected locationTypes
   	var locationTypesArr = [];
-  	$.each($scope.locationTypesArr, function(index, locationType) {
+  	$.each($scope.locationTypes, function(index, locationType) {
 
   		if(locationType.selected && locationType.selected == true)
   			locationTypesArr.push(locationType.id);
