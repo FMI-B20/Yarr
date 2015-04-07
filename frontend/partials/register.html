@@ -1,6 +1,6 @@
 <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="../css/app.css" rel="stylesheet" type="text/css" />
-<div class="row col-md-8 col-md-offset-2" style="margin-top:100px;">
+<div class="row col-md-8 col-md-offset-2" style="margin-top:80px;">
   <div class="col-md-12 text-center">
     <form name="registerForm" ng-controller="RegisterController"
           ng-submit="register(credentials)" novalidate >
@@ -14,11 +14,15 @@
              ng-model="credentials.email">
       </h1>
       <h1>
-      <label class="yarr-small-margin" for="password">Password </label>
-      <input type="password" id="password"
-             ng-model="credentials.password">
+      <label class="yarr-small-margin" for="password1">Password1 </label>
+      <input type="password" id="password1"
+             ng-model="credentials.password1">
       </h1>
-     
+      <h1>
+      <label class="yarr-small-margin" for="password2">Password2 </label>
+      <input type="password" id="password2"
+             ng-model="credentials.password2">
+      </h1>
       <button type="submit" class="btn btn-default btn-lg yarr-btn-lg yarr-small-margin pull-right col-xs-offset-10" style="margin-right: 18%;">Register</button>
     </form>
 
