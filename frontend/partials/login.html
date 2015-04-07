@@ -1,15 +1,20 @@
-<div class="row col-md-8 col-md-offset-2">
+<link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="../css/app.css" rel="stylesheet" type="text/css" />
+<div class="row col-md-8 col-md-offset-2" style="margin-top:150px;">
   <div class="col-md-12 text-center">
     <form name="loginForm" ng-controller="LoginController"
-          ng-submit="login(credentials)" novalidate>
-      <label for="username">Username:</label>
+          ng-submit="login(credentials)" novalidate >
+      <h1><label class="yarr-small-margin" for="username">Username </label>
       <input type="text" id="username"
              ng-model="credentials.username">
-      <label for="password">Password:</label>
+      </h1>
+      <h1>
+      <label class="yarr-small-margin" for="password">Password </label>
       <input type="password" id="password"
              ng-model="credentials.password">
-      <button type="submit" class="btn btn-default">Login</button>
+      </h1>
+      <button type="submit" class="btn btn-default btn-lg yarr-btn-lg yarr-small-margin pull-right col-xs-offset-10" style="margin-right: 18%;">Login</button>
     </form>
-    <div class="clearfix"></div>
+
   </div>
 </div>
