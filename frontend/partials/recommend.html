@@ -1,0 +1,13 @@
+<div class="row col-md-8 col-md-offset-2" ng-controller="RecommendController">
+  <div class="col-md-6 place-card" ng-repeat="place in recommendedPlaces">
+    <div class="panel panel-default">
+      <div class="panel-body" ui-sref="place({ id: place.id })">
+        <span class="pull-right" ng-if="place.rating">
+          <em style="font-size: 24px;">{{ place.rating | number: 1 }}</em>/5
+        </span>
+        <h3 style="margin-top: 0"><a href>{{ place.name }}</a></h3>
+        <p>{{ place.address }}</p>
+      </div>
+    </div>
+  </div>
+</div>
