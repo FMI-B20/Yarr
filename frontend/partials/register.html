@@ -1,0 +1,26 @@
+<link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="../css/app.css" rel="stylesheet" type="text/css" />
+<div class="row col-md-8 col-md-offset-2" style="margin-top:100px;">
+  <div class="col-md-12 text-center">
+    <form name="registerForm" ng-controller="RegisterController"
+          ng-submit="register(credentials)" novalidate >
+      <h1><label class="yarr-small-margin" for="username">Username </label>
+      <input type="text" id="username"
+             ng-model="credentials.username">
+      </h1>
+       <h1>
+      <label class="yarr-small-margin" style="margin: 5px 58px;" for="email">Email </label>
+      <input type="text" id="email"
+             ng-model="credentials.email">
+      </h1>
+      <h1>
+      <label class="yarr-small-margin" for="password">Password </label>
+      <input type="password" id="password"
+             ng-model="credentials.password">
+      </h1>
+     
+      <button type="submit" class="btn btn-default btn-lg yarr-btn-lg yarr-small-margin pull-right col-xs-offset-10" style="margin-right: 18%;">Login</button>
+    </form>
+
+  </div>
+</div>

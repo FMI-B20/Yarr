@@ -17,6 +17,10 @@ yarr.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $u
     .state('login', {
       url: "/login",
       templateUrl: "/static/partials/login.html"
+    })
+	 .state('register', {
+      url: "/register",
+      templateUrl: "/static/partials/register.html"
     });
   
 }]);
