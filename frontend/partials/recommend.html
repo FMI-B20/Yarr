@@ -1,13 +1,32 @@
 <div class="row col-md-8 col-md-offset-2" ng-controller="RecommendController">
   <div class="col-md-6 place-card" ng-repeat="place in recommendedPlaces">
-    <div class="panel panel-default">
-      <div class="panel-body" ui-sref="place({ id: place.id })">
-        <span class="pull-right" ng-if="place.rating">
-          <em style="font-size: 24px;">{{ place.rating | number: 1 }}</em>/5
-        </span>
-        <h3 style="margin-top: 0"><a href>{{ place.name }}</a></h3>
-        <p>{{ place.address }}</p>
+    <div class="panel panel-default container-fluid">
+      <div class="col-md-4" style="margin-top: 10px; margin-bottom: 5px; height: 100%;">
+        <img ng-src="{{ place.image_url }}" style="width: 100%; height: 100%;" class="img-thumbnail" />
       </div>
+      <div class="col-md-8">
+        <div class="panel-body" ui-sref="place({ id: place.id })">
+          <span class="pull-right" ng-if="place.rating">
+            <em style="font-size: 24px;">{{ place.rating | number: 1 }}</em>/5
+          </span>
+          <h3 style="margin-top: 0"><a href>{{ place.name }}</a></h3>
+          <p>
+            {{ place.address }}
+          </p>
+          <p ng-if="place.phone_number1">
+            <b>Telefon:</b> {{ place.phone_number1 }}
+          </p>
+        </div>
+      </div>
+      <div class="clearfix"></div>
     </div>
+  </div>
+
+  <div class="col-md-12 text-center">
+    <button class="btn btn-default" ng-click="loadMore()" ng-disabled="loading">
+      More results &nbsp;
+      <i class="glyphicon glyphicon-plus" ng-class="{ 'hidden': loading }"></i>
+      <i class="glyphicon glyphicon-refresh fa-spin" ng-class="{ 'hidden': !loading }"></i>
+    </button>
   </div>
 </div>

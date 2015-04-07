@@ -11,6 +11,19 @@
   float: none;
 }
 
+.settings-container .cuisine, .settings-container .location-type {
+  cursor: pointer;
+}
+
+.settings-container .cuisine:hover, .settings-container .location-type:hover {
+  opacity: 0.8;
+}
+
+.cuisines-container, .location-types-container {
+  background-color: #4E5D6C;
+  margin: 10px 0px;
+  padding: 10px 0px;
+}
 
 .fa-spin {
   -webkit-animation: fa-spin 2s infinite linear;
