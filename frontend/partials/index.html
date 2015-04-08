@@ -10,12 +10,12 @@
     </div>
   </div>
   <div class="col-md-6 place-card" ng-repeat="place in places">
-    <div class="panel panel-default container-fluid">
+    <div class="panel panel-default container-fluid" ui-sref="place({ id: place.id })">
       <div class="row-fluid text-center" style="margin-top: 10px; margin-bottom: 5px;">
-        <img ng-src="{{ place.image_url }}" class="img-thumbnail" />
+        <a href><img ng-src="{{ place.image_url }}" class="img-thumbnail" /></a>
       </div>
       <div class="row-fluid">
-        <div class="panel-body" ui-sref="place({ id: place.id })">
+        <div class="panel-body">
           <span class="pull-right" ng-if="place.rating">
             <em style="font-size: 24px;">{{ place.rating | number: 1 }}</em>/5
           </span>
