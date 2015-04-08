@@ -11,10 +11,10 @@
   </div>
   <div class="col-md-6 place-card" ng-repeat="place in places">
     <div class="panel panel-default container-fluid">
-      <div class="col-md-4" style="margin-top: 10px; margin-bottom: 5px; height: 100%;">
-        <img ng-src="{{ place.image_url }}" style="width: 100%; height: 100%;" class="img-thumbnail" />
+      <div class="row-fluid text-center" style="margin-top: 10px; margin-bottom: 5px;">
+        <img ng-src="{{ place.image_url }}" class="img-thumbnail" />
       </div>
-      <div class="col-md-8">
+      <div class="row-fluid">
         <div class="panel-body" ui-sref="place({ id: place.id })">
           <span class="pull-right" ng-if="place.rating">
             <em style="font-size: 24px;">{{ place.rating | number: 1 }}</em>/5

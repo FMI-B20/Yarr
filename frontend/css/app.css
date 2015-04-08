@@ -25,6 +25,11 @@
   padding: 10px 0px;
 }
 
+.place-card img {
+  width: auto;
+  max-height: 180px;
+}
+
 .fa-spin {
   -webkit-animation: fa-spin 2s infinite linear;
   animation: fa-spin 2s infinite linear;
