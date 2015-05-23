@@ -17,6 +17,7 @@ yarr.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $u
     .state('settings', {
       url: "/settings/",
       templateUrl: "/static/partials/settings.html"
+    })
     .state('login', {
       url: "/login",
       templateUrl: "/static/partials/login.html"
