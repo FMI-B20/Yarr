@@ -1,3 +1,3 @@
-yarr.factory('Recommandations', ['djResource', function(djResource) {
-  return djResource('/api/recommend_places/?cuisines=:cuisines&locationtypes=:locationTypes', {}, {});
+yarr.factory('Recommandations', ['$resource', function($resource) {
+  return $resource('/api/recommend_places.json', {}, {});
 }]);
