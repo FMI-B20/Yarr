@@ -25,7 +25,10 @@ SECRET_KEY = 'f2!xa^bl2ys67q^mxeec%q*mn8b4b9t^-9w4f-r8q3k^p___us'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
+TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -34,7 +37,7 @@ ALLOWED_HOSTS = []
 TEMPLATE_CONTEXT_PROCESSORS = (
     # Required by `allauth` template tags
     "django.core.context_processors.request",
-
+    "django.contrib.auth.context_processors.auth",
     # `allauth` specific context processors
     "allauth.account.context_processors.account",
     "allauth.socialaccount.context_processors.socialaccount",
@@ -58,8 +61,8 @@ INSTALLED_APPS = (
     # REST Authentication
     'rest_framework',
     'rest_framework.authtoken',
-
     'rest_auth',
+
     # All auth
     'django.contrib.sites',
 
