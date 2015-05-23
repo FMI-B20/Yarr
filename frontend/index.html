@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <div class="navbar navbar-default">
+        <div class="navbar navbar-default" ng-controller="HeaderController">
             <div class="container-fluid">
                 <a class="navbar-brand hidden-xs" ui-sref="index">YARR</a>
                 <ul class="nav navbar-nav">
@@ -13,9 +13,14 @@
                     <li ui-sref-active="active"><a href ui-sref="places">Restaurants</a></li>
                     <li ui-sref-active="active"><a href ui-sref="settings">Recommend</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+
+                <ul class="nav navbar-nav navbar-right" ng-show="!user.key">
                   <li ui-sref-active="active"><a href ui-sref="login">Login</a></li>
-				  <li ui-sref-active="active"><a href ui-sref="register">Register</a></li>
+				          <li ui-sref-active="active"><a href ui-sref="register">Register</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" ng-show="user.key">
+                  <li ui-sref-active="active"><a href ui-sref="profile">My Profile</a></li>
+                  <li ui-sref-active="active"><a href ng-click="logout()">Log Out</a></li>
                 </ul>
             </div>
         </div>
@@ -46,6 +51,7 @@
         <script src="/static/js/routes.js"></script>
 
         <!-- Controllers -->
+        <script src="/static/js/controllers/header.js"></script>
         <script src="/static/js/controllers/index.js"></script>
         <script src="/static/js/controllers/place.js"></script>
         <script src="/static/js/controllers/recommend.js"></script>

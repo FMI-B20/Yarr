@@ -1,10 +1,20 @@
 yarr.factory('Auth', ['$cookies', function($cookies) {
-  return {
+  var userCallbacks = [];
+  var userNotify = function() {
+    for(var i=0; i<userCallbacks.length; i++) {
+      userCallbacks[i](JSON.parse($cookies.user));
+    }
+  };
+
+  var Auth = {
     user: function() {
-      return $cookies.user;
+      return JSON.parse($cookies.user);
     },
     setUser: function(user) {
-      return ($cookies.user = JSON.stringify(user));
+      user.token = "12345";
+      $cookies.user = JSON.stringify(user);
+      userNotify();
+      return true;
     },
     token: function() {
       try {
@@ -15,6 +25,12 @@ yarr.factory('Auth', ['$cookies', function($cookies) {
     },
     clear: function() {
       $cookies.user = null;
+      userNotify();
+    },
+    onUser: function(cb) {
+      userCallbacks.push(cb);
     }
   };
+
+  return Auth;
 }]);

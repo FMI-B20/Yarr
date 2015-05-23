@@ -1,6 +1,15 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as DjangoUser
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
+from rest_framework.authtoken.models import Token
+
+class User(DjangoUser):
+    @property
+    def key(self):
+        return Token.objects.get_or_create(user=self)[0].key
+
+    class Meta:
+        proxy = True
 
 class Cuisine(models.Model):
     name = models.CharField(max_length=32)
@@ -17,7 +26,7 @@ class LocationType(models.Model):
 class Place(models.Model):
     name = models.CharField(max_length=128)
     address = models.TextField()
-    
+
     phone_number1 = models.TextField(
         null = True,
         blank = False,
@@ -31,25 +40,25 @@ class Place(models.Model):
     )
 
     image_url = models.URLField(
-        null = True, 
+        null = True,
         blank = False
     )
-    
+
     location_types = models.ManyToManyField(LocationType)
 
     cuisines = models.ManyToManyField(Cuisine)
-    
+
     location_lat = models.FloatField()
     location_lon = models.FloatField()
 
     def __unicode__(self):
         return ''.join(["(",", ".join(
             [
-            self.name, 
-            str(self.phone_number1), 
-            str(self.phone_number2), 
+            self.name,
+            str(self.phone_number1),
+            str(self.phone_number2),
             str(self.image_url),
-            str(self.location_lat), 
+            str(self.location_lat),
             str(self.location_lon)
             ]
         ),")"])
