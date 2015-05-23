@@ -55,14 +55,14 @@ class Place(models.Model):
         ),")"])
 
 
-class Visit(models.Model):
+class Rating(models.Model):
     user = models.ForeignKey(User)
     place = models.ForeignKey(Place)
     time = models.DateTimeField(auto_now_add=True)
     rating = models.SmallIntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(5)],
-        null=True
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
+    commentary = models.TextField()
 
     def __unicode__(self):
         return "[{}, {}]".format(unicode(self.user), unicode(self.place))

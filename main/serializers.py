@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Place, Visit, Cuisine, LocationType
+from .models import Place, Rating, Cuisine, LocationType
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -29,10 +29,8 @@ class PlaceSerializer(serializers.HyperlinkedModelSerializer):
         depth = 1
 
 
-class VisitSerializer(serializers.HyperlinkedModelSerializer):
-    user = UserSerializer()
-    place = PlaceSerializer()
-
+class RatingSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Visit
-        fields = ('id', 'user', 'place', 'time', 'rating')
+        model = Rating
+        fields = ('id', 'user', 'place', 'time', 'rating', 'comentary')
+        depth = 1
