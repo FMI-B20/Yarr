@@ -11,7 +11,7 @@ yarr.controller('AuthController', ['$scope', 'AuthLogin', 'AuthRegister', 'Auth'
   };
   $scope.login = function (loginCredentials) {
     AuthLogin.login(JSON.stringify(loginCredentials), function(response){
-      Auth.setUser({ key: response.key });
+      Auth.setUser({ token: response.key });
       alert('Logged in succesfully!');
     }, function(){
       alert('Unable to login due to incorect credentials!');

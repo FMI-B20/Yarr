@@ -1,13 +1,17 @@
 yarr.factory('Auth', ['$cookies', function($cookies) {
   return {
     user: function() {
-      return $cookies.getObject('user');
+      return $cookies.user;
     },
     setUser: function(user) {
-      return $cookies.putObject('user', user);
+      return ($cookies.user = JSON.stringify(user));
     },
     token: function() {
-      return $cookies.getObject('user').token;
+      try {
+        return JSON.parse($cookies.user).token;
+      } catch(e) {
+        return null;
+      }
     }
   };
 }]);
