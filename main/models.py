@@ -1,6 +1,8 @@
 from django.db import models
+from django.db.models import Avg
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
+import json
 
 class Cuisine(models.Model):
     name = models.CharField(max_length=32)
@@ -42,27 +44,22 @@ class Place(models.Model):
     location_lat = models.FloatField()
     location_lon = models.FloatField()
 
+    @property
+    def average_stars(self):
+        return Rating.objects.filter(place=self.id).aggregate(Avg('stars')).values()[0]
+
     def __unicode__(self):
-        return ''.join(["(",", ".join(
-            [
-            self.name, 
-            str(self.phone_number1), 
-            str(self.phone_number2), 
-            str(self.image_url),
-            str(self.location_lat), 
-            str(self.location_lon)
-            ]
-        ),")"])
+        return "[{}, {}, {}, {}, {}, {}, {}]".format(self.name, str(self.address), str(self.phone_number1), str(self.phone_number2), str(self.image_url), str(self.location_lat), str(self.location_lon))
 
 
-class Visit(models.Model):
-    user = models.ForeignKey(User)
+class Rating(models.Model):
+    user = models.ForeignKey(User, null = True)
     place = models.ForeignKey(Place)
     time = models.DateTimeField(auto_now_add=True)
-    rating = models.SmallIntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(5)],
-        null=True
+    stars = models.SmallIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
+    commentary = models.TextField()
 
     def __unicode__(self):
         return "[{}, {}]".format(unicode(self.user), unicode(self.place))
