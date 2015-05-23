@@ -33,6 +33,12 @@ class RatingViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.DjangoFilterBackend]
     filter_fields = ['user', 'place']
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+
 class CuisineViewSet(viewsets.ModelViewSet):
     queryset = Cuisine.objects.all()
     serializer_class = CuisineSerializer

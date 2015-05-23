@@ -48,7 +48,7 @@ class Place(models.Model):
 
 
 class Rating(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, null = True)
     place = models.ForeignKey(Place)
     time = models.DateTimeField(auto_now_add=True)
     rating = models.SmallIntegerField(
