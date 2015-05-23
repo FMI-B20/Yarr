@@ -12,6 +12,9 @@ yarr.factory('Auth', ['$cookies', function($cookies) {
       } catch(e) {
         return null;
       }
+    },
+    clear: function() {
+      $cookies.user = null;
     }
   };
 }]);
