@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
+import json
 
 class Cuisine(models.Model):
     name = models.CharField(max_length=32)
@@ -43,16 +44,7 @@ class Place(models.Model):
     location_lon = models.FloatField()
 
     def __unicode__(self):
-        return ''.join(["(",", ".join(
-            [
-            self.name, 
-            str(self.phone_number1), 
-            str(self.phone_number2), 
-            str(self.image_url),
-            str(self.location_lat), 
-            str(self.location_lon)
-            ]
-        ),")"])
+        return "[{}, {}, {}, {}, {}, {}, {}]".format(self.name, str(self.address), str(self.phone_number1), str(self.phone_number2), str(self.image_url), str(self.location_lat), str(self.location_lon))
 
 
 class Rating(models.Model):
