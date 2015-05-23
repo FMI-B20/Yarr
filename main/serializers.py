@@ -24,11 +24,11 @@ class PlaceSerializer(serializers.ModelSerializer):
         model = Place
         fields = (
             'id', 'name', 'address', 'phone_number1', 'phone_number2', 'location_types', 'cuisines', 
-            'location_lat', 'location_lon', 'image_url'
+            'location_lat', 'location_lon', 'image_url', 'average_stars'
         )
 
 
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
-        fields = ('id', 'user', 'place', 'time', 'rating', 'commentary')
+        fields = ('id', 'user', 'place', 'time', 'stars', 'commentary')
