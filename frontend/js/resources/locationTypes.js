@@ -1,3 +1,3 @@
-yarr.factory('LocationTypes', ['djResource', function(djResource) {
-  return djResource('/api/location_types/.json');
+yarr.factory('LocationTypes', ['$resource', function($resource) {
+  return $resource('/api/location_types.json');
 }]);

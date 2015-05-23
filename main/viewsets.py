@@ -1,14 +1,13 @@
-from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, filters
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import detail_route, list_route
 from .serializers import UserSerializer, PlaceSerializer
-from .serializers import RatingSerializer, CuisineSerializer, LocationTypeSerializer
+from .serializers import RatingSerializer, CuisineSerializer, LocationTypeSerializer, MeSerializer
+from main.models import User,Place,Rating,Cuisine,LocationType
 
-from .models import Cuisine, Place, Rating, LocationType
 import json
 
 
@@ -24,6 +23,13 @@ class PlaceViewSet(viewsets.ModelViewSet):
     permission_classes = []
     filter_backends = [filters.DjangoFilterBackend]
 
+class MeViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = [TokenAuthentication]
+    serializer_class = MeSerializer
+
+    def get_queryset(self):
+        return User.objects.filter(pk=self.request.user.pk)
 
 class RatingViewSet(viewsets.ModelViewSet):
     queryset = Rating.objects.all()
@@ -65,11 +71,11 @@ class RecomandationViewSet(viewsets.ModelViewSet):
         if cuisines_arg is not None:
             cuisines_json_list = json.loads(cuisines_arg)
             if cuisines_json_list:
-                recommended_queryset = recommended_queryset.filter(cuisines__pk__in = cuisines_json_list)            
+                recommended_queryset = recommended_queryset.filter(cuisines__pk__in = cuisines_json_list)
 
         if types_arg is not None:
             types_json_list = json.loads(types_arg)
             if types_json_list:
-                recommended_queryset = recommended_queryset.filter(location_types__pk__in = types_json_list)   
-        
+                recommended_queryset = recommended_queryset.filter(location_types__pk__in = types_json_list)
+
         return recommended_queryset

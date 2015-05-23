@@ -1,8 +1,17 @@
 from django.db import models
 from django.db.models import Avg
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as DjangoUser
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 import json
+from rest_framework.authtoken.models import Token
+
+class User(DjangoUser):
+    @property
+    def key(self):
+        return Token.objects.get_or_create(user=self)[0].key
+
+    class Meta:
+        proxy = True
 
 class Cuisine(models.Model):
     name = models.CharField(max_length=32)
@@ -19,7 +28,7 @@ class LocationType(models.Model):
 class Place(models.Model):
     name = models.CharField(max_length=128)
     address = models.TextField()
-    
+
     phone_number1 = models.TextField(
         null = True,
         blank = False,
@@ -32,15 +41,12 @@ class Place(models.Model):
         validators = [RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'")]
     )
 
-    image_url = models.URLField(
-        null = True, 
-        blank = False
-    )
-    
+    image_url = models.URLField()
+
     location_types = models.ManyToManyField(LocationType)
 
     cuisines = models.ManyToManyField(Cuisine)
-    
+
     location_lat = models.FloatField()
     location_lon = models.FloatField()
 

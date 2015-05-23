@@ -1,12 +1,17 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
-from .models import Place, Rating, Cuisine, LocationType
+from .models import Place, Rating, Cuisine, LocationType, User
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'url', 'username', 'email', 'is_staff')
+
+class MeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'url', 'username', 'email', 'is_staff', 'key')
+
 
 class LocationTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,7 +22,6 @@ class CuisineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cuisine
         fields = ('id','name')
-
 
 class PlaceSerializer(serializers.ModelSerializer):
     class Meta:

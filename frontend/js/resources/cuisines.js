@@ -1,3 +1,3 @@
-yarr.factory('Cuisines', ['djResource', function(djResource) {
-  return djResource('/api/cuisines/.json');
+yarr.factory('Cuisines', ['$resource', function($resource) {
+  return $resource('/api/cuisines.json');
 }]);
