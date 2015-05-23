@@ -47,11 +47,11 @@ class RecomandationViewSet(viewsets.ModelViewSet):
         if cuisines_arg is not None:
             cuisines_json_list = json.loads(cuisines_arg)
             if cuisines_json_list:
-                recommended_queryset = recommended_queryset.filter(cuisines__pk__in = cuisines_json_list)            
+                recommended_queryset = recommended_queryset.filter(cuisines__pk__in = cuisines_json_list)
 
         if types_arg is not None:
             types_json_list = json.loads(types_arg)
             if types_json_list:
-                recommended_queryset = recommended_queryset.filter(location_types__pk__in = types_json_list)   
-        
+                recommended_queryset = recommended_queryset.filter(location_types__pk__in = types_json_list)
+
         return recommended_queryset
