@@ -28,7 +28,7 @@ DEBUG = True
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
 
