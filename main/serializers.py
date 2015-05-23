@@ -3,23 +3,23 @@ from django.contrib.auth.models import User
 from .models import Place, Rating, Cuisine, LocationType
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'url', 'username', 'email', 'is_staff')
 
-class LocationTypeSerializer(serializers.HyperlinkedModelSerializer):
+class LocationTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = LocationType
         fields = ('id','name')
 
-class CuisineSerializer(serializers.HyperlinkedModelSerializer):
+class CuisineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cuisine
         fields = ('id','name')
 
 
-class PlaceSerializer(serializers.HyperlinkedModelSerializer):
+class PlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Place
         fields = (
@@ -29,8 +29,8 @@ class PlaceSerializer(serializers.HyperlinkedModelSerializer):
         depth = 1
 
 
-class RatingSerializer(serializers.HyperlinkedModelSerializer):
+class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
-        fields = ('id', 'user', 'place', 'time', 'rating', 'comentary')
+        fields = ('id', 'user', 'place', 'time', 'rating', 'commentary')
         depth = 1
