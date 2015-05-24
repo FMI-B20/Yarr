@@ -1,4 +1,5 @@
-yarr.controller('AuthController', ['$scope', 'AuthLogin', 'AuthRegister', 'Auth', 'Users', function ($scope, AuthLogin, AuthRegister, Auth, Users) {
+yarr.controller('AuthController', ['$scope', '$location' , 'AuthLogin', 'AuthRegister', 'Auth', 'Users', function ($scope, $location, AuthLogin, AuthRegister, Auth, Users) {
+  
   $scope.loginCredentials = {
     username: '',
     password: ''
@@ -10,25 +11,21 @@ yarr.controller('AuthController', ['$scope', 'AuthLogin', 'AuthRegister', 'Auth'
     email: ''
   };
 
-  var loadUser = function() {
-    Users.me().$promise.then(function(users) {
-      Auth.setUser(users[0]);
-    });
-  };
-
   $scope.login = function (loginCredentials) {
     AuthLogin.login(loginCredentials, function(response) {
       Auth.setUser({ token: response.key });
-      loadUser();
+      Users.me().$promise.then(function(users) { Auth.setUser(users[0]); });
       alert('Logged in succesfully!');
+      $location.path('/')
     }, function() {
       alert('Unable to login due to incorect credentials!');
     });
   };
+
   $scope.register = function (registerCredentials) {
     AuthRegister.register(registerCredentials, function() {
       alert('Registration complete!');
-      loadUser();
+      $scope.login({username : registerCredentials.username, password : registerCredentials.password1});
     }, function() {
       alert('Unable to register due to incorect credentials!');
     });
