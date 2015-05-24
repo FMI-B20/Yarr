@@ -104,14 +104,8 @@ class RecomandationViewSet(viewsets.ModelViewSet):
         lng_arg = self.request.QUERY_PARAMS.get('lng', None)
         radius_arg = self.request.QUERY_PARAMS.get('radius', None)
 
-        lat = float(json.loads(lat_arg))
-        lng = float(json.loads(lng_arg))
-        radius = float(json.loads(radius_arg))
-
         recommended_queryset = Place.objects.all()
 
-        recommended_queryset = filter(lambda x: (self.distance_meters(lat, lng, float(x.location_lat), float(x.location_lon)) <= radius), recommended_queryset)
-        
         if cuisines_arg is not None:
             cuisines_json_list = json.loads(cuisines_arg)
             if cuisines_json_list:
@@ -122,4 +116,11 @@ class RecomandationViewSet(viewsets.ModelViewSet):
             if types_json_list:
                 recommended_queryset = recommended_queryset.filter(location_types__pk__in = types_json_list)
 
+        lat = float(json.loads(lat_arg))
+        lng = float(json.loads(lng_arg))
+        radius = float(json.loads(radius_arg))
+
+        recommended_queryset = filter(lambda x: (self.distance_meters(lat, lng, float(x.location_lat), float(x.location_lon)) <= radius), recommended_queryset)
+        
+        
         return recommended_queryset
