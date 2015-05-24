@@ -64,7 +64,7 @@ class RecomandationViewSet(viewsets.ModelViewSet):
     serializer_class = PlaceSerializer
     authentication_classes = [TokenAuthentication]
 
-    def distance_meters(lat1, long1, lat2, long2):
+    def distance_meters(self, lat1, long1, lat2, long2):
  
         # Convert latitude and longitude to
         # spherical coordinates in radians.
@@ -94,7 +94,7 @@ class RecomandationViewSet(viewsets.ModelViewSet):
         # in your favorite set of units to get length.
 
         # we need the distance in meters (http://www.johndcook.com/blog/python_longitude_latitude/)
-        return arc * 6.373
+        return arc * 6373 * 1000
 
     def get_queryset(self):
         cuisines_arg = self.request.QUERY_PARAMS.get('cuisines', None)
@@ -104,8 +104,14 @@ class RecomandationViewSet(viewsets.ModelViewSet):
         lng_arg = self.request.QUERY_PARAMS.get('lng', None)
         radius_arg = self.request.QUERY_PARAMS.get('radius', None)
 
+        lat = float(json.loads(lat_arg))
+        lng = float(json.loads(lng_arg))
+        radius = float(json.loads(radius_arg))
+
         recommended_queryset = Place.objects.all()
 
+        recommended_queryset = filter(lambda x: (self.distance_meters(lat, lng, float(x.location_lat), float(x.location_lon)) <= radius), recommended_queryset)
+        
         if cuisines_arg is not None:
             cuisines_json_list = json.loads(cuisines_arg)
             if cuisines_json_list:
