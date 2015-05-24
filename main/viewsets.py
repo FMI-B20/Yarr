@@ -74,6 +74,7 @@ class RecomandationViewSet(viewsets.ModelViewSet):
     model = Place
     serializer_class = PlaceSerializer
     authentication_classes = [TokenAuthentication]
+    permission_classes = []
 
     def get_queryset(self):
         cuisines_arg = self.request.QUERY_PARAMS.get('cuisines', None)

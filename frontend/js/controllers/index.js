@@ -12,4 +12,10 @@ yarr.controller('IndexController', ['$scope', '$state', '$stateParams', 'Place',
   $scope.search = function() {
     $state.go('search', { search: $scope.searchTerm });
   };
+
+  $scope.renderStars = function(value) {
+    $('.rating').last().rating('create' , {disabled : true, showClear : false, size : 'sm', step : 0.1});
+    $('.rating').last().rating('update', value);    
+  };
+
 }]);

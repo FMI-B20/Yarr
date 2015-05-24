@@ -6,9 +6,6 @@
       </div>
       <div class="row-fluid">
         <div class="panel-body text-center">
-          <span class="pull-right" ng-if="place.rating">
-            <em style="font-size: 24px;">{{ place.rating | number: 1 }}</em>/5
-          </span>
           <h3 style="margin-top: 0"><a href>{{ place.name }}</a></h3>
           <p>
             {{ place.address }}
@@ -16,6 +13,7 @@
           <p ng-if="place.phone_number1">
             <b>Telefon:</b> {{ place.phone_number1 }}
           </p>
+          <input type="number" class="rating" value="{{ renderStars(place.average_stars) }}">
         </div>
       </div>
       <div class="clearfix"></div>
