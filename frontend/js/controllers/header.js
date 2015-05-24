@@ -1,7 +1,6 @@
-yarr.controller('HeaderController', ['$scope', 'Auth', 'Users', function($scope, Auth, Users) {
+yarr.controller('HeaderController', ['$scope', '$state', 'Auth', 'Users', function($scope, $state, Auth, Users) {
   Auth.onUser(function(user) {
     $scope.user = user;
-    console.log(user);
   });
   Users.me().$promise.then(function(users) {
     Auth.setUser(users[0]);
@@ -9,5 +8,6 @@ yarr.controller('HeaderController', ['$scope', 'Auth', 'Users', function($scope,
 
   $scope.logout = function() {
     Auth.clear();
+    $state.go('index');
   };
 }]);

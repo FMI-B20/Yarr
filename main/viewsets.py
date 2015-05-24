@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 from rest_framework import viewsets, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
@@ -17,11 +18,22 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class PlaceViewSet(viewsets.ModelViewSet):
-    queryset = Place.objects.all()
     serializer_class = PlaceSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = []
     filter_backends = [filters.DjangoFilterBackend]
+
+    def get_queryset(self):
+        queryset = Place.objects.all()
+
+        if self.request.query_params.get('search'):
+            search = self.request.query_params['search']
+            queryset = queryset.filter(
+                Q(name__icontains=search) |
+                Q(address__icontains=search)
+            )
+
+        return queryset
 
 class MeViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
