@@ -11,7 +11,6 @@ yarr.factory('Auth', ['$cookies', function($cookies) {
       return JSON.parse($cookies.user);
     },
     setUser: function(user) {
-      user.token = "12345";
       $cookies.user = JSON.stringify(user);
       userNotify();
       return true;
