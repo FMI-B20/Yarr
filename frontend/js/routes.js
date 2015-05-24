@@ -7,7 +7,7 @@ yarr.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $u
       templateUrl: "/static/partials/index.html"
     })
     .state('recommend', {
-      url: "/recommend/:cuisines/:locationTypes/",
+      url: "/recommend/:cuisines/:locationTypes/:lat/:lng/:radius/",
       templateUrl: "/static/partials/recommend.html"
     })
     .state('place', {

@@ -17,17 +17,28 @@ yarr.controller('RecommendController', ['$scope', '$stateParams', 'Recommandatio
   	 locationTypesArr[index] = parseInt(val);
   });
   
+  var lat = $stateParams.lat;
+  var lng = $stateParams.lng;
+  var radius = $stateParams.radius;
+
   $scope.recommendedPlaces = Recommandations.query({
   	cuisines : JSON.stringify(cuisinesArr),
-  	locationTypes : JSON.stringify(locationTypesArr)
+  	locationTypes : JSON.stringify(locationTypesArr),
+    lat : JSON.stringify(lat),
+    lng : JSON.stringify(lng),
+    radius : JSON.stringify(radius)
   });
 
+  
   $scope.loadMore = function() {
     $scope.loading = true;
     var page = Recommandations.query({ 
       offset: $scope.recommendedPlaces.length,
       cuisines : JSON.stringify(cuisinesArr),
-      locationTypes : JSON.stringify(locationTypesArr) 
+      locationTypes : JSON.stringify(locationTypesArr),
+      lat : JSON.stringify(lat),
+      lng : JSON.stringify(lng),
+      radius : JSON.stringify(radius)
     }, function() {
       [].push.apply($scope.recommendedPlaces, page);
       $scope.loading = false;
