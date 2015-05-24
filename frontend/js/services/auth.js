@@ -33,7 +33,6 @@ yarr.factory('Auth', ['$cookies', function($cookies) {
       userNotify();
     },
     onUser: function(cb) {
-      console.log($cookies);
       userCallbacks.push(cb);
       if($cookies.user || $cookies.token) {
         cb(Auth.user());
