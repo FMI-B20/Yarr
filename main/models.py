@@ -1,17 +1,9 @@
 from django.db import models
 from django.db.models import Avg
-from django.contrib.auth.models import User as DjangoUser
+from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 import json
 from rest_framework.authtoken.models import Token
-
-class User(DjangoUser):
-    @property
-    def key(self):
-        return Token.objects.get_or_create(user=self)[0].key
-
-    class Meta:
-        proxy = True
 
 class Cuisine(models.Model):
     name = models.CharField(max_length=32)

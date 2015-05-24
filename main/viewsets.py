@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import detail_route, list_route
 from .serializers import UserSerializer, PlaceSerializer
-from .serializers import RatingSerializer, CuisineSerializer, LocationTypeSerializer, MeSerializer
+from .serializers import RatingSerializer, CuisineSerializer, LocationTypeSerializer
 from main.models import User,Place,Rating,Cuisine,LocationType
 
 import json
@@ -38,7 +38,7 @@ class PlaceViewSet(viewsets.ModelViewSet):
 class MeViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
-    serializer_class = MeSerializer
+    serializer_class = UserSerializer
 
     def get_queryset(self):
         return User.objects.filter(pk=self.request.user.pk)

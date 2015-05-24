@@ -6,29 +6,6 @@
         <meta charset="UTF-8"/>
     </head>
     <body>
-        <div class="navbar navbar-default" ng-controller="HeaderController">
-            <div class="container-fluid">
-                <a class="navbar-brand hidden-xs" ui-sref="index">YARR</a>
-                <ul class="nav navbar-nav">
-                    <li ui-sref-active="active"><a href ui-sref="index">Home</a></li>
-                    <li ui-sref-active="active"><a href ui-sref="settings">Recommend</a></li>
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right" ng-show="!user.key">
-                  <li ui-sref-active="active"><a href ui-sref="login">Login</a></li>
-				          <li ui-sref-active="active"><a href ui-sref="register">Register</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right" ng-show="user.key">
-                  <li ui-sref-active="active"><a href ui-sref="profile">My Profile</a></li>
-                  <li ui-sref-active="active"><a href ng-click="logout()">Log Out</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="container-fluid">
-            <div ui-view></div>
-        </div>
-
         <link rel="stylesheet"  href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/static/bower_components/bootswatch/superhero/bootstrap.min.css"></link>
@@ -62,7 +39,7 @@
         <script src="/static/js/controllers/profile.js"></script>
         <script src="/static/js/controllers/recommend.js"></script>
         <script src="/static/js/controllers/settings.js"></script>
-      	<script src="/static/js/controllers/auth.js"></script>
+        <script src="/static/js/controllers/auth.js"></script>
 
         <!-- Services -->
         <script src="/static/js/services/auth.js"></script>
@@ -75,7 +52,27 @@
         <script src="/static/js/resources/recommandations.js"></script>
         <script src="/static/js/resources/auth.js"></script>
         <script src="/static/js/resources/users.js"></script>
+        <div class="navbar navbar-default" ng-controller="HeaderController">
+            <div class="container-fluid">
+                <a class="navbar-brand hidden-xs" ui-sref="index">YARR</a>
+                <ul class="nav navbar-nav">
+                    <li ui-sref-active="active"><a href ui-sref="index">Home</a></li>
+                    <li ui-sref-active="active"><a href ui-sref="settings">Recommend</a></li>
+                </ul>
 
+                <ul class="nav navbar-nav navbar-right" ng-show="!user.token">
+                  <li ui-sref-active="active"><a href ui-sref="login">Login</a></li>
+				          <li ui-sref-active="active"><a href ui-sref="register">Register</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" ng-show="user.token">
+                  <li ui-sref-active="active"><a href ui-sref="profile">My Profile</a></li>
+                  <li ui-sref-active="active"><a href ng-click="logout()">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
 
+        <div class="container-fluid">
+            <div ui-view></div>
+        </div>
     </body>
 </html>

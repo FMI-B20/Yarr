@@ -7,12 +7,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'url', 'username', 'email', 'is_staff')
 
-class MeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'url', 'username', 'email', 'is_staff', 'key')
-
-
 class LocationTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = LocationType
@@ -27,7 +21,7 @@ class PlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Place
         fields = (
-            'id', 'name', 'address', 'phone_number1', 'phone_number2', 'location_types', 'cuisines', 
+            'id', 'name', 'address', 'phone_number1', 'phone_number2', 'location_types', 'cuisines',
             'location_lat', 'location_lon', 'image_url', 'average_stars'
         )
 

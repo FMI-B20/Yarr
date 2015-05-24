@@ -1,5 +1,5 @@
 yarr.controller('AuthController', ['$scope', '$location' , 'AuthLogin', 'AuthRegister', 'Auth', 'Users', function ($scope, $location, AuthLogin, AuthRegister, Auth, Users) {
-  
+
   $scope.loginCredentials = {
     username: '',
     password: ''
@@ -13,10 +13,10 @@ yarr.controller('AuthController', ['$scope', '$location' , 'AuthLogin', 'AuthReg
 
   $scope.login = function (loginCredentials) {
     AuthLogin.login(loginCredentials, function(response) {
-      Auth.setUser({ token: response.key });
+      Auth.setToken(response.key);
       Users.me().$promise.then(function(users) { Auth.setUser(users[0]); });
       alert('Logged in succesfully!');
-      $location.path('/')
+      $location.path('/');
     }, function() {
       alert('Unable to login due to incorect credentials!');
     });
