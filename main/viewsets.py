@@ -81,7 +81,7 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
         cuisines_arg = self.request.QUERY_PARAMS.get('cuisines', None)
         types_arg = self.request.QUERY_PARAMS.get('locationtypes', None)
 
-        def distance_meters(self, lat1, long1, lat2, long2): 
+        def distance_meters(lat1, long1, lat2, long2): 
             # Convert latitude and longitude to
             # spherical coordinates in radians.
             degrees_to_radians = math.pi/180.0                 
@@ -125,14 +125,14 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
         
         if radius_arg is not None:
             try:
-              radius = float(json.loads(radius_arg))
+              radius = float(radius_arg)
             except ValueError:
               pass
 
-        if lat_arg is not None and lon_arg is not None:
+        if lat_arg is not None and lng_arg is not None:
             try:
-                lat = float(json.loads(lat_arg))
-                lng = float(json.loads(lng_arg))
+                lat = float(lat_arg)
+                lng = float(lng_arg)
                 recommended_queryset = filter(lambda x: (distance_meters(lat, lng, float(x.location_lat), float(x.location_lon)) <= radius), recommended_queryset)
             except ValueError:
                 pass      
