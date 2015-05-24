@@ -9,6 +9,18 @@
       </map>
     </div>
   </div>
+  <div class="col-md-12" style="margin-bottom: 20px;">
+    <div class="col-md-6 col-md-offset-3">
+      <form name="form" ng-submit="search()">
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="searchTerm" placeholder="Type a name or address... " autofocus />
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit">Search!</button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
   <div class="col-md-6 place-card" ng-repeat="place in places">
     <div class="panel panel-default container-fluid" ui-sref="place({ id: place.id })">
       <div class="row-fluid text-center" style="margin-top: 10px; margin-bottom: 5px;">

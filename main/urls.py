@@ -6,7 +6,7 @@ from .viewsets import UserViewSet, PlaceViewSet, RatingViewSet, CuisineViewSet, 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'users/me', MeViewSet, "Me")
 router.register(r'users', UserViewSet)
-router.register(r'places', PlaceViewSet)
+router.register(r'places', PlaceViewSet, "Place")
 router.register(r'ratings', RatingViewSet)
 router.register(r'cuisines', CuisineViewSet)
 router.register(r'location_types', LocationTypeViewSet)

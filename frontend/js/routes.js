@@ -29,6 +29,9 @@ yarr.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $u
 	 .state('register', {
       url: "/register",
       templateUrl: "/static/partials/register.html"
+    })
+    .state('search', {
+      url: "/s/:search/",
+      templateUrl: "/static/partials/index.html"
     });
-
 }]);
