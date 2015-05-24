@@ -4,8 +4,6 @@
     <p>Address: {{ place.address }}</p>
   </div>
   <div class="col-md-4">
-
-
     <map center="{{ [place.location_lat, place.location_lon] }}" zoom="13">
       <marker
       position="{{ [place.location_lat, place.location_lon] }}"

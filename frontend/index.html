@@ -3,6 +3,7 @@
     <head>
         <title>Yarr</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8"/>
     </head>
     <body>
         <div class="navbar navbar-default" ng-controller="HeaderController">
@@ -10,7 +11,6 @@
                 <a class="navbar-brand hidden-xs" ui-sref="index">YARR</a>
                 <ul class="nav navbar-nav">
                     <li ui-sref-active="active"><a href ui-sref="index">Home</a></li>
-                    <li ui-sref-active="active"><a href ui-sref="places">Restaurants</a></li>
                     <li ui-sref-active="active"><a href ui-sref="settings">Recommend</a></li>
                 </ul>
 
@@ -29,9 +29,13 @@
             <div ui-view></div>
         </div>
 
+        <link rel="stylesheet"  href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/bower_components/bootswatch/superhero/bootstrap.min.css"></link>
         <link rel="stylesheet" type="text/css" href="/static/bower_components/angular-ui-select/dist/select.min.css"></link>
         <link rel="stylesheet" type="text/css" href="/static/bower_components/bootswatch/united/bootstrap.min.css"></link>
         <link rel="stylesheet" type="text/css" href="/static/css/app.css"></link>
+        <link rel="stylesheet" type="text/css" href="/static/bower_components/bootstrap-rating-star/css/star-rating.min.css"></link>
 
         <script src="//maps.google.com/maps/api/js"></script>
         <script src="/static/bower_components/jquery/dist/jquery.min.js"></script>
@@ -45,6 +49,7 @@
         <script src="/static/bower_components/ngmap/build/scripts/ng-map.min.js"></script>
         <script src="/static/bower_components/lodash/dist/lodash.min.js"></script>
         <script src="/static/bower_components/angular-ui-select/dist/select.min.js"></script>
+        <script src="/static/bower_components/bootstrap-rating-star/js/star-rating.min.js"></script>
 
         <!-- Application files -->
         <script src="/static/js/yarr.js"></script>
