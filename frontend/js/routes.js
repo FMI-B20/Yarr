@@ -14,6 +14,10 @@ yarr.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $u
       url: "/place/:id/",
       templateUrl: "/static/partials/place.html"
     })
+    .state('profile', {
+      url: "/profile/",
+      templateUrl: "/static/partials/profile.html"
+    })
     .state('settings', {
       url: "/settings/",
       templateUrl: "/static/partials/settings.html"

@@ -29,6 +29,9 @@ yarr.factory('Auth', ['$cookies', function($cookies) {
     },
     onUser: function(cb) {
       userCallbacks.push(cb);
+      if($cookies.user) {
+        cb(JSON.parse($cookies.user));
+      }
     }
   };
 
