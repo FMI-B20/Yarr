@@ -70,48 +70,40 @@ class LocationTypeViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = []
 
-class RecomandationViewSet(viewsets.ModelViewSet):
+class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
 
     model = Place
     serializer_class = PlaceSerializer
     authentication_classes = [TokenAuthentication]
-    permission_classes = []
-
-    def distance_meters(self, lat1, long1, lat2, long2):
- 
-        # Convert latitude and longitude to
-        # spherical coordinates in radians.
-        degrees_to_radians = math.pi/180.0
-             
-        # phi = 90 - latitude
-        phi1 = (90.0 - lat1)*degrees_to_radians
-        phi2 = (90.0 - lat2)*degrees_to_radians
-             
-        # theta = longitude
-        theta1 = long1*degrees_to_radians
-        theta2 = long2*degrees_to_radians
-             
-        # Compute spherical distance from spherical coordinates.
-             
-        # For two locations in spherical coordinates
-        # (1, theta, phi) and (1, theta, phi)
-        # cosine( arc length ) =
-        #    sin phi sin phi' cos(theta-theta') + cos phi cos phi'
-        # distance = rho * arc length
-         
-        cos = (math.sin(phi1)*math.sin(phi2)*math.cos(theta1 - theta2) +
-               math.cos(phi1)*math.cos(phi2))
-        arc = math.acos( cos )
-     
-        # Remember to multiply arc by the radius of the earth
-        # in your favorite set of units to get length.
-
-        # we need the distance in meters (http://www.johndcook.com/blog/python_longitude_latitude/)
-        return arc * 6373 * 1000
+    permission_classes = []    
 
     def get_queryset(self):
         cuisines_arg = self.request.QUERY_PARAMS.get('cuisines', None)
         types_arg = self.request.QUERY_PARAMS.get('locationtypes', None)
+
+        def distance_meters(self, lat1, long1, lat2, long2): 
+            # Convert latitude and longitude to
+            # spherical coordinates in radians.
+            degrees_to_radians = math.pi/180.0                 
+            # phi = 90 - latitude
+            phi1 = (90.0 - lat1)*degrees_to_radians
+            phi2 = (90.0 - lat2)*degrees_to_radians                 
+            # theta = longitude
+            theta1 = long1*degrees_to_radians
+            theta2 = long2*degrees_to_radians                 
+            # Compute spherical distance from spherical coordinates.                 
+            # For two locations in spherical coordinates
+            # (1, theta, phi) and (1, theta, phi)
+            # cosine( arc length ) =
+            #    sin phi sin phi' cos(theta-theta') + cos phi cos phi'
+            # distance = rho * arc length             
+            cos = (math.sin(phi1)*math.sin(phi2)*math.cos(theta1 - theta2) +
+                   math.cos(phi1)*math.cos(phi2))
+            arc = math.acos( cos )         
+            # Remember to multiply arc by the radius of the earth
+            # in your favorite set of units to get length.
+            # we need the distance in meters (http://www.johndcook.com/blog/python_longitude_latitude/)
+            return arc * 6373 * 1000
 
         lat_arg = self.request.QUERY_PARAMS.get('lat', None)
         lng_arg = self.request.QUERY_PARAMS.get('lng', None)
@@ -129,11 +121,20 @@ class RecomandationViewSet(viewsets.ModelViewSet):
             if types_json_list:
                 recommended_queryset = recommended_queryset.filter(location_types__pk__in = types_json_list)
 
-        lat = float(json.loads(lat_arg))
-        lng = float(json.loads(lng_arg))
-        radius = float(json.loads(radius_arg))
-
-        recommended_queryset = filter(lambda x: (self.distance_meters(lat, lng, float(x.location_lat), float(x.location_lon)) <= radius), recommended_queryset)
+        radius = 100
         
+        if radius_arg is not None:
+            try:
+              radius = float(json.loads(radius_arg))
+            except ValueError:
+              pass
+
+        if lat_arg is not None and lon_arg is not None:
+            try:
+                lat = float(json.loads(lat_arg))
+                lng = float(json.loads(lng_arg))
+                recommended_queryset = filter(lambda x: (distance_meters(lat, lng, float(x.location_lat), float(x.location_lon)) <= radius), recommended_queryset)
+            except ValueError:
+                pass      
         
         return recommended_queryset
