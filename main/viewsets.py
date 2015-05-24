@@ -24,7 +24,7 @@ class PlaceViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.DjangoFilterBackend]
 
 class MeViewSet(viewsets.ReadOnlyModelViewSet):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     serializer_class = MeSerializer
 
