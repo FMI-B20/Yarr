@@ -66,6 +66,11 @@ class RecomandationViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         cuisines_arg = self.request.QUERY_PARAMS.get('cuisines', None)
         types_arg = self.request.QUERY_PARAMS.get('locationtypes', None)
+
+        lat_arg = self.request.QUERY_PARAMS.get('lat', None)
+        lng_arg = self.request.QUERY_PARAMS.get('lng', None)
+        radius_arg = self.request.QUERY_PARAMS.get('radius', None)
+
         recommended_queryset = Place.objects.all()
 
         if cuisines_arg is not None:
