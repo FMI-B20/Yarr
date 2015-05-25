@@ -9,6 +9,7 @@ yarr.factory('Auth', ['$cookies', function($cookies) {
 
   Auth = {
     user: function() {
+      console.log($cookies.user)
       var user = JSON.parse($cookies.user);
       if(user) {
         user.token = $cookies.token;

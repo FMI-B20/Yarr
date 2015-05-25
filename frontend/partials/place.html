@@ -10,4 +10,31 @@
       title="{{ place.name }}"></marker>
     </map>
   </div>
+
+  <div class="col-md-12">
+    <h1> Reviews </h1>
+  </div>
+
+  <div ng-repeat="rating in ratings" class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <p><big><big><b>{{ rating.username }}</b></big></big></p>
+        <p> at {{ rating.time }} <p>
+      </div>
+      <div class="col-md-10">
+        <input type="number" class="rating" value="{{ renderStars(rating.stars, rating.id) }}">     
+        <h3> {{ rating.commentary }} <h3>
+      </div>
+    </div>
+    <hr>
+  </div>
+
+  <div class="col-md-12 text-center">
+    <button class="btn btn-default" ng-click="loadMoreRatings()" ng-disabled="ratingsLoading">
+      More ratings &nbsp;
+      <i class="glyphicon glyphicon-plus" ng-class="{ 'hidden': ratingsLoading }"></i>
+      <i class="glyphicon glyphicon-refresh fa-spin" ng-class="{ 'hidden': !ratingsLoading }"></i>
+    </button>
+  </div>
+
 </div>
