@@ -44,10 +44,4 @@ yarr.controller('RecommendController', ['$scope', '$stateParams', 'Recommandatio
       $scope.loading = false;
     });
   };
-
-  $scope.renderStars = function(value) {
-    $('.rating').last().rating('create' , {disabled : true, showClear : false, size : 'sm', step : 0.1});
-    $('.rating').last().rating('update', value);    
-  };
-
 }]);

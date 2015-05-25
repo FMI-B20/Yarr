@@ -1,4 +1,4 @@
-yarr.controller('PlaceController', ['$scope', '$stateParams', 'Places', 'Ratings', 'Users', function($scope, $stateParams, Places, Ratings, Users) {
+yarr.controller('PlaceController', ['$scope', '$timeout', '$stateParams', 'Places', 'Ratings', 'Users', function($scope, $timeout, $stateParams, Places, Ratings, Users) {
   $scope.place = Places.get({ id: $stateParams.id });
   $scope.ratings = Ratings.query({ place: $stateParams.id, limit: 2 });
   $scope.ratings.$promise.then(function(ratings) {
@@ -30,11 +30,4 @@ yarr.controller('PlaceController', ['$scope', '$stateParams', 'Places', 'Ratings
       [].push.apply($scope.ratings, ratings);
     });    
   }
-
-  $scope.renderStars = function(value, id) {
-    console.log(id);
-    $('.rating').last().rating('create' , {disabled: true, showClear : false, size : 'sm', step : 1});
-    $('.rating').last().rating('update', value);
-  };
-
 }]);
