@@ -30,4 +30,25 @@ yarr.controller('PlaceController', ['$scope', '$timeout', '$stateParams', 'Place
       [].push.apply($scope.ratings, ratings);
     });    
   }
+
+  $scope.writeRating = false;
+  $scope.ratingData = {
+    stars : null,
+    commentary : null,
+    place : $stateParams.id
+  };
+
+  $scope.onRatingChange = function(event, value, caption) {
+    $scope.ratingData.stars = value;
+  };
+
+  $scope.submitRating = function() {
+    var serializedRating = JSON.stringify($scope.ratingData);
+    Ratings.save(serializedRating).$promise.then(function(response){
+      alert('Rating submitted!');
+    }, function(error) {
+      alert('Unable to submit rating!');
+    });
+  };
+
 }]);

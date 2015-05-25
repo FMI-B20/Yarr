@@ -13,6 +13,29 @@
     </map>
   </div>
 
+  <div class="col-md-12 text-center">
+    <button class="btn btn-default" ng-click="writeRating = true" ng-show="!writeRating">
+      Write a rating.
+    </button>
+  </div>
+
+  <div class="col-md-12 text-center" ng-show="writeRating">
+    Your rating
+    <input type="number" 
+    rating-stars-value="0" 
+    rating-stars-options="{disabled: false, showClear : false, size : 'sm', step : 1}" 
+    rating-stars-on-rating-change="onRatingChange">
+    <textarea rows="4" cols="50" ng-model="ratingData.commentary">
+    </textarea>
+    <br>
+    <button class="btn btn-default" ng-click="writeRating = false" ng-show="writeRating">
+      Cancel
+    </button>
+    <button class="btn btn-default" ng-click="submitRating()" ng-show="writeRating">
+      Submit
+    </button>
+  </div>
+
   <div class="col-md-12">
     <h1> Reviews </h1>
   </div>
