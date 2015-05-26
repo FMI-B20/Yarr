@@ -20,7 +20,7 @@
  
 
   <div class="col-md-10 col-xs-offset-1">
-    <button class="btn btn-default" style="margin-top: 30px;" ng-click="writeRating = true" ng-show="!writeRating && !userHasRating">
+    <button class="btn btn-primary btn-lg" style="margin-top: 30px;" ng-click="writeRating = true" ng-show="!writeRating && !userHasRating">
       Write a rating.
     </button>
   </div>
@@ -37,8 +37,8 @@
     </button>
   </div>
 
-  <div class="col-md-10 col-xs-offset-1" ng-show="writeRating"  style="border-top: 1px solid #eee; margin-top: 30px;">
-     <h2><span>Your rating</span></h2>
+  <div class="col-md-10 col-xs-offset-1" ng-show="writeRating"  style="margin-top: 30px;">
+     <div class="yarr-header"><h1 class="col-md-8">Your rating</h1></div>
     <ratingstars ng-model="ratingData.stars" min="0" max="5" input-disabled="false" show-clear="false" size="sm" step="1"/>
     <textarea rows="4" cols="50" ng-model="ratingData.commentary">
     </textarea>
