@@ -34,16 +34,21 @@ yarr.controller('PlaceController', ['$scope', '$timeout', '$stateParams', 'Place
   $scope.writeRating = false;
   $scope.ratingData = {
     stars : null,
-    commentary : null,
-    place : $stateParams.id
+    commentary : null
   };
+  $scope.initialRatingData = {
+    stars : null,
+    commentary : null
+  }
   $scope.userHasRating = false;
 
   Ratings.query({place: $stateParams.id, user: 2}).$promise.then(function(data) {
     if (data.length > 0) {
       $scope.userHasRating = true;
-      $scope.ratingData = data[0];
-      console.log($scope.ratingData);
+      $scope.ratingData.stars = data[0].stars;
+      $scope.ratingData.commentary = data[0].commentary;
+      $scope.initialRatingData.stars = data[0].stars;
+      $scope.initialRatingData.commentary = data[0].commentary;
     }
   });
 
@@ -55,6 +60,12 @@ yarr.controller('PlaceController', ['$scope', '$timeout', '$stateParams', 'Place
     }, function(error) {
       alert('Unable to submit rating!');
     });
+  };
+
+  $scope.cancelWriteRating = function() {
+    $scope.writeRating = false;
+    $scope.ratingData.stars = $scope.initialRatingData.stars;
+    $scope.ratingData.commentary = $scope.initialRatingData.commentary;
   };
 
 }]);
