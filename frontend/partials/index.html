@@ -1,6 +1,57 @@
-<div class="row col-md-8 col-md-offset-2" ng-controller="IndexController">
-  <div class="col-md-12">
-    <div class="panel panel-default">
+<link href="../css/app.css" rel="stylesheet" type="text/css" />
+<link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
+<div class="row col-md-12 yarr-large-margin-top" ng-controller="IndexController">
+  <div class="col-md-12" style="margin-bottom: 20px;">
+ <div id="slides">
+  <div class="slides-container">
+    <img src="http://designcollector.net/files/2015/03/nude-cafe-moscow.jpg" alt="">
+    <img src="http://designcollector.net/files/2015/02/fruitdesign.jpg" alt="">
+	<img src="http://designcollector.net/files/2015/03/bookstore-carousel-light-bucharest-romania1.jpg" alt=""> 
+  </div>
+</div>
+  </div>
+   <div class="col-md-10 col-xs-offset-1" style="margin-bottom: 20px;">
+   <div class="yarr-header"><h1 class="col-md-8">Browse through restaurants</h1>
+    <form name="form" ng-submit="search()" class="col-md-4 yarr-search">
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="searchTerm" placeholder="Type a name or address... " autofocus />
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+          </span>
+        </div>
+      </form>
+   </div>
+   </div>
+  <div class="col-md-10 place-card col-xs-offset-1" ng-repeat="place in places">
+    <div class="yarr-container container-fluid" ui-sref="place({ id: place.id })">
+      <div class="col-md-6 row-fluid" style="margin-top: 10px; margin-bottom: 5px;">
+       <div class="yarr-thumb"><a href><img style="width: 100%;" ng-src="{{ place.image_url }}" class="img-thumbnail" /></a></div>
+      </div>
+      <div class="col-md-6 row-fluid">
+        <div class="panel-body">
+          <h1 class="yarr-title" style="margin-top: 0"><a href>{{ place.name }}</a></h1>
+          <p>
+            {{ place.address }}
+          </p>
+          <p ng-if="place.phone_number1">
+            <span style="font-weight: bold; font-size: 16px; color: #bf3e11;">Telefon:</span> {{ place.phone_number1 }}
+          </p>
+          <input class="yarr-stars" type="number" rating-stars-value="{{ place.average_stars }}" rating-stars-options="{disabled: true, showClear : false, size : 'sm', step : 0.1}">
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+  <div class="col-md-12 text-center yarr-large-margin-bottom">
+    <button class="btn btn-primary btn-lg" ng-click="loadMore()" ng-disabled="loading">
+      More results &nbsp;
+      <i class="glyphicon glyphicon-plus" ng-class="{ 'hidden': loading }"></i>
+      <i class="glyphicon glyphicon-refresh fa-spin" ng-class="{ 'hidden': !loading }"></i>
+    </button>
+  </div>
+</div>
+    <div  id="map" class="col-md-12">
       <map center="{{[ places[0].location_lat, places[0].location_lon ]}}" zoom="12">
         <marker
           position="[{{ place.location_lat }}, {{ place.location_lon }}]"
@@ -8,45 +59,11 @@
           ng-repeat="place in places"></marker>
       </map>
     </div>
-  </div>
-  <div class="col-md-12" style="margin-bottom: 20px;">
-    <div class="col-md-6 col-md-offset-3">
-      <form name="form" ng-submit="search()">
-        <div class="input-group">
-          <input type="text" class="form-control" ng-model="searchTerm" placeholder="Type a name or address... " autofocus />
-          <span class="input-group-btn">
-            <button class="btn btn-primary" type="submit">Search!</button>
-          </span>
-        </div>
-      </form>
+<div id="footer" class="col-md-12 text-center">
+	<div class="container">
+		<div class="row">
+    		<div class="text-center footer-info medium-opacity">© YARR 2015   •   13 Universitate, Bucharest   •   Tel: 71494563   •   Handcrafted with love by YARR Team</div>
+            <p class="text-center medium-opacity">PERMISSIONS AND COPYRIGHT  • CONTACT THE TEAM</p>
+		</div>
     </div>
-  </div>
-  <div class="col-md-6 place-card" ng-repeat="place in places">
-    <div class="panel panel-default container-fluid" ui-sref="place({ id: place.id })">
-      <div class="row-fluid text-center" style="margin-top: 10px; margin-bottom: 5px;">
-        <a href><img ng-src="{{ place.image_url }}" class="img-thumbnail" /></a>
-      </div>
-      <div class="row-fluid">
-        <div class="panel-body text-center">
-          <h3 style="margin-top: 0"><a href>{{ place.name }}</a></h3>
-          <p>
-            {{ place.address }}
-          </p>
-          <p ng-if="place.phone_number1">
-            <b>Telefon:</b> {{ place.phone_number1 }}
-          </p>
-          <input type="number" rating-stars-value="{{ place.average_stars }}" rating-stars-options="{disabled: true, showClear : false, size : 'sm', step : 0.1}">
-        </div>
-      </div>
-      <div class="clearfix"></div>
-    </div>
-  </div>
-
-  <div class="col-md-12 text-center">
-    <button class="btn btn-default" ng-click="loadMore()" ng-disabled="loading">
-      More results &nbsp;
-      <i class="glyphicon glyphicon-plus" ng-class="{ 'hidden': loading }"></i>
-      <i class="glyphicon glyphicon-refresh fa-spin" ng-class="{ 'hidden': !loading }"></i>
-    </button>
-  </div>
 </div>
