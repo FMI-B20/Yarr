@@ -16,7 +16,7 @@
       </form>
   </div>
   </div>
-  <div class="col-md-10 place-card col-xs-offset-1" ng-repeat="place in places">
+  <div class="col-md-10 place-card col-xs-offset-1" ng-repeat="place in places | orderBy : 'average_stars == null ? 0 : -average_stars'">
     <div class="yarr-container container-fluid" ui-sref="place({ id: place.id })">
       <div class="col-md-6 row-fluid" style="margin-top: 10px; margin-bottom: 5px;">
        <div class="yarr-thumb"><a href><img style="width: 100%;" ng-src="{{ place.image_url }}" class="img-thumbnail" /></a></div>

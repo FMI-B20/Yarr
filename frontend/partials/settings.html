@@ -42,7 +42,7 @@
         multiple
         theme="bootstrap">
           <ui-select-match placeholder="Enter some location types...">{{ $item.name }}</ui-select-match>
-          <ui-select-choices class="btn-primary" repeat="locationType in locationTypes track by locationType.id">
+          <ui-select-choices repeat="locationType in locationTypes track by locationType.id">
             <div>{{ locationType.name }}</div>
           </ui-select-choices>
       </ui-select>
