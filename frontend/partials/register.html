@@ -1,30 +1,30 @@
-<link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
-<link href="../css/app.css" rel="stylesheet" type="text/css" />
-<div class="row col-md-8 col-md-offset-2" style="margin-top:80px;">
-  <div class="col-md-12 text-center">
-    <form name="registerForm" ng-controller="AuthController"
+ <div class="col-md-10 col-xs-offset-1 " style=" margin-top: 100px; margin-bottom: 20px;">
+   <div class="yarr-header"><h1 class="col-md-8">Register</h1></div>
+     <form name="registerForm" ng-controller="AuthController"
           ng-submit="register(registerCredentials)" novalidate >
-      <h1><label class="yarr-small-margin" for="username">Username </label>
-      <input type="text" id="username"
-             ng-model="registerCredentials.username">
-      </h1>
-       <h1>
-      <label class="yarr-small-margin" style="margin: 5px 58px;" for="email">Email </label>
-      <input type="text" id="email"
-             ng-model="registerCredentials.email">
-      </h1>
-      <h1>
-      <label class="yarr-small-margin" for="password1">Password1 </label>
-      <input type="password" id="password1"
-             ng-model="registerCredentials.password1">
-      </h1>
-      <h1>
-      <label class="yarr-small-margin" for="password2">Password2 </label>
-      <input type="password" id="password2"
-             ng-model="registerCredentials.password2">
-      </h1>
-      <button type="submit" class="btn btn-default btn-lg yarr-btn-lg yarr-small-margin pull-right col-xs-offset-10" style="margin-right: 15%;">Register</button>
-    </form>
+        <h1><label class="yarr-small-margin" for="username"><h2>Username</h2> </label>
+        <input type="text" id="username"
+               ng-model="registerCredentials.username">
+        </h1>
+         <h1>
+        <label class="yarr-small-margin" style="margin: 5px 58px;" for="email"><h2>Email</h2> </label>
+        <input type="text" id="email"
+               ng-model="registerCredentials.email">
+        </h1>
+        <h1>
+        <label class="yarr-small-margin" for="password1"><h2>Password1</h2> </label>
+        <input type="password" id="password1"
+               ng-model="registerCredentials.password1">
+        </h1>
+        <h1>
+        <label class="yarr-small-margin" for="password2"><h2>Password2</h2> </label>
+        <input type="password" id="password2"
+               ng-model="registerCredentials.password2">
+        </h1>
+        <button type="submit" class="btn btn-primary btn-lg yarr-btn-lg yarr-small-margin pull-right" style="margin-bottom: 100px;">Register</button>
+      </form>
+
 
   </div>
-</div>
+ 
+

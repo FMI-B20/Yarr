@@ -7,7 +7,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from .serializers import UserSerializer, PlaceSerializer
 from .serializers import RatingSerializer, CuisineSerializer, LocationTypeSerializer
-from main.models import User, Place, Rating, Cuisine, LocationType, RecommandationHistory
+from main.utils import IsStaffOrReadOnly
+from main.models import User,Place,Rating,Cuisine,LocationType,RecommandationHistory
 
 import math
 import json
@@ -21,7 +22,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class PlaceViewSet(viewsets.ModelViewSet):
     serializer_class = PlaceSerializer
     authentication_classes = [TokenAuthentication]
-    permission_classes = []
+    permission_classes = [IsStaffOrReadOnly]
     filter_backends = [filters.DjangoFilterBackend]
 
     def get_queryset(self):
@@ -68,14 +69,13 @@ class LocationTypeViewSet(viewsets.ModelViewSet):
     queryset = LocationType.objects.all()
     serializer_class = LocationTypeSerializer
     authentication_classes = [TokenAuthentication]
-    permission_classes = []
+    permission_classes = [IsStaffOrReadOnly]
 
 class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
 
     model = Place
     serializer_class = PlaceSerializer
     authentication_classes = [TokenAuthentication]
-    permission_classes = [] 
 
     def retrieve(self, request, pk=None):
         return Response(status=403)
@@ -129,7 +129,7 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
         last_cuisines = set(item.name for item in last_query.cuisines.all())
 
         #print('last query ' + str(last_locations) + " " + str(last_cuisines))
-        #print('cur query ' + str(cur_locations) + " " + str(cur_cuisines))
+        iprint('cur query ' + str(cur_locations) + " " + str(cur_cuisines))
 
         if last_cuisines == cur_cuisines:
             if last_locations == cur_locations:
@@ -140,9 +140,9 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
         history_object.save()
         #print('lala ' + str(int(search_info['cuisines_arg'][0])))
 
-    def refine_set(self, recommended_queryset):
+    def refine_set(self, recommended_queryset, k_threshold):
         recent_hist = RecommandationHistory.objects.filter(user = self.request.user).order_by('time')
-        recent_hist = recent_hist[max(0, len(recent_hist) - 10):]
+        recent_hist = recent_hist[max(0, len(recent_hist) - k_threshold):]
 
         recent_hist.reverse()
 
@@ -151,7 +151,6 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
         for item in recent_hist:
             all_cuisines = item.cuisines.all()
             all_locations = item.location_types.all()
-
             for cuis in all_cuisines:
                 if cuis.name not in cache.keys():
                     cache[cuis.name] = 1
@@ -172,30 +171,23 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
             for cuisine in item.cuisines.all():
                 if cuisine.name in cache.keys():
                     cur_sum += cache[cuisine.name]
-            scores[item] = cur_sum
 
+            avg = item.average_stars
+
+            if avg is None:
+                avg = 3.0
+
+            scores[item] = avg * cur_sum
 
         def compare_function(x, y):
             if scores[x] == scores[y]:
-                avgx = x.average_stars
-                avgy = y.average_stars
-
-                if avgx == None:
-                    agvx = 0.0
-                if avgy == None:
-                    avgy = 0.0
-
-                if avgx < avgy:
-                    return -1
-                if avgx == avgy:
-                    return 0
-                if avgx > avgy:
-                    return 1
+                return 0
             if scores[x] < scores[y]:
                 return -1
             return 1
 
         recommended_queryset = sorted(recommended_queryset, cmp=compare_function, reverse=True)
+        #print([scores[item] for item in recommended_queryset])
         return recommended_queryset
 
     def get_queryset(self):
@@ -271,8 +263,10 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
             except ValueError:
                 pass
 
-
         if self.request.user.is_anonymous() != True:
-            recommended_queryset = self.refine_set(recommended_queryset)
+            #take the last 30 recommandations
+            recommended_queryset = self.refine_set(recommended_queryset, 30)
+        else:
+            recommended_queryset = sorted(recommended_queryset, key=lambda x: x.average_stars, reverse = True)
 
         return recommended_queryset

@@ -1,70 +1,74 @@
+<link href="../css/app.css" rel="stylesheet" type="text/css" />
+<link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
 <div ng-controller="PlaceController" class="row">
-  <div class="col-md-8">
-    <h1>{{ place.name }}</h1>    
-    <p>Address: {{ place.address }}</p>
-    <ratingstars ng-model="place.average_stars" min="0" max="5" input-disabled="true" show-clear="false" size="sm" step="0.1"/>
-    <b>{{ ratings.length }} reviews </b>
+<div id="yarr-cover">
+ <div class="yarr-overlay">
+ </div>
+  <h1 class="text-center" style="margin-top: 200px; z-index: 100; font-size: 72px; position:absolute">{{ place.name }}</h1>
+  <div class="text-center" style="margin-top: 280px; z-index: 100; position:absolute; width: 100%">
+    <ratingstars ng-model="place.average_stars" min="0" max="5" input-disabled="true" show-clear="false" show-caption="false" size="lg" step="0.1"/>
   </div>
-  <div class="col-md-4">
-    <map center="{{ [place.location_lat, place.location_lon] }}" zoom="13">
-      <marker
-      position="{{ [place.location_lat, place.location_lon] }}"
-      title="{{ place.name }}"></marker>
-    </map>
+  <a href><img style="width: 100%;" ng-src="{{ place.image_url }}" class="img-thumbnail" /></a>
+</div>
+  <div class="col-md-10 col-xs-offset-1 yarr-large-margin-top">
+    <div class="yarr-header"><h1 class="col-md-8">Details</h1></div>
+    <h2><span><i class="fa fa-map-marker"></i>Address: </span> {{ place.address }}</h2>
+    <div class="clearfix"></div>
   </div>
+ 
 
-  <div class="col-md-12 text-center">
-    <button class="btn btn-default" ng-click="writeRating = true" ng-show="!writeRating && !userHasRating">
+  <div class="col-md-10 col-xs-offset-1">
+    <button class="btn btn-primary btn-lg" style="margin-top: 30px;" ng-click="writeRating = true" ng-show="!writeRating && !userHasRating">
       Write a rating.
     </button>
   </div>
 
-  <div class="col-md-12 text-center" ng-show="!writeRating && userHasRating">
-    Your rating
-    <ratingstars ng-model="ratingData.stars" min="0" max="5" input-disabled="true" show-clear="false" size="sm" step="1"/>
-    <p>
+  <div class="col-md-10 col-xs-offset-1" ng-show="!writeRating && userHasRating" style=" margin-top: 30px;">
+    <div class="yarr-header"><h1 class="col-md-8">Your rating</h1></div>
+    <ratingstars ng-model="ratingData.stars" min="0" max="5" show-caption="true" input-disabled="true" show-clear="false" size="sm" step="1"/>
+    <h4>
       {{ ratingData.commentary }}
-    </p>
+    </h4>
     <br>
-    <button class="btn btn-default" ng-click="writeRating = true">
+    <button class="btn btn-primary btn-lg" ng-click="writeRating = true">
       Edit
     </button>
   </div>
 
-  <div class="col-md-12 text-center" ng-show="writeRating">
-    Your rating
-    <ratingstars ng-model="ratingData.stars" min="0" max="5" input-disabled="false" show-clear="false" size="sm" step="1"/>
+  <div class="col-md-10 col-xs-offset-1" ng-show="writeRating"  style="margin-top: 30px;">
+     <div class="yarr-header"><h1 class="col-md-8">Your rating</h1></div>
+    <ratingstars ng-model="ratingData.stars" min="0" max="5" input-disabled="false" show-caption="true" show-clear="false" size="sm" step="1"/>
     <textarea rows="4" cols="50" ng-model="ratingData.commentary">
     </textarea>
     <br>
-    <button class="btn btn-default" ng-click="cancelWriteRating()">
+    <button class="btn btn-primary" ng-click="cancelWriteRating()">
       Cancel
     </button>
-    <button class="btn btn-default" ng-click="submitRating()" ng-disabled="ratingData.stars == null || ratingData.commentary == null">
+    <button class="btn btn-primary" ng-click="submitRating()" ng-disabled="ratingData.stars == null || ratingData.commentary == null">
       Submit
     </button>
   </div>
 
-  <div class="col-md-12">
-    <h1> Reviews </h1>
+  <div class="col-md-10 col-xs-offset-1 yarr-large-margin-top">
+   <div class="yarr-header"><h1 class="col-md-8">Reviews</h1></div>
   </div>
 
   <div ng-show="ratings.length > 0">
-    <div ng-repeat="rating in ratings" class="container-fluid">
+    <div ng-repeat="rating in ratings" class="container-fluid col-md-10 col-xs-offset-1">
       <div class="row">
         <div class="col-md-2">
           <p><big><big><b>{{ rating.username }}</b></big></big></p>
           <p> at {{ rating.time }} <p>
         </div>
         <div class="col-md-10">
-          <ratingstars ng-model="rating.stars" min="0" max="5" input-disabled="true" show-clear="false" size="sm" step="1"/>   
-          <h3> {{ rating.commentary }} <h3>
+          <ratingstars ng-model="rating.stars" min="0" max="5" show-caption="true" input-disabled="true" show-clear="false" size="sm" step="1"/>   
+          <h4> {{ rating.commentary }} </h4>
         </div>
       </div>
       <hr>
     </div>
-    <div class="col-md-12 text-center">
-      <button class="btn btn-default" ng-click="loadMoreRatings()" ng-disabled="ratingsLoading">
+    <div class="col-md-10 col-xs-offset-1 text-center">
+      <button class="btn btn-primary btn-lg yarr-large-margin-bottom" ng-click="loadMoreRatings()" ng-disabled="ratingsLoading">
         More ratings &nbsp;
         <i class="glyphicon glyphicon-plus" ng-class="{ 'hidden': ratingsLoading }"></i>
         <i class="glyphicon glyphicon-refresh fa-spin" ng-class="{ 'hidden': !ratingsLoading }"></i>
@@ -72,8 +76,14 @@
     </div>
   </div>
 
-  <div ng-show="ratings.length == 0" class="col-md-12 text-center">
-    <p><big> No reviews yet! <big></p>
+  <div ng-show="ratings.length == 0" class="col-md-10 col-xs-offset-1 text-center yarr-large-margin-bottom">
+    <h3><span> No reviews yet! <span></h3>
   </div> 
-
+  <div class="col-md-12">
+    <map center="{{ [place.location_lat, place.location_lon] }}" zoom="13">
+      <marker
+      position="{{ [place.location_lat, place.location_lon] }}"
+      title="{{ place.name }}"></marker>
+    </map>
+  </div>
 </div>

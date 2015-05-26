@@ -1,17 +1,11 @@
-<link href="../css/app.css" rel="stylesheet" type="text/css" />
-<link href="../css/bootstrap.css" rel="stylesheet" type="text/css" />
-<div class="row col-md-12 yarr-large-margin-top" ng-controller="IndexController">
-  <div class="col-md-12" style="margin-bottom: 20px;">
- <div id="slides">
-  <div class="slides-container">
-    <img src="http://designcollector.net/files/2015/03/nude-cafe-moscow.jpg" alt="">
-    <img src="http://designcollector.net/files/2015/02/fruitdesign.jpg" alt="">
-	<img src="http://designcollector.net/files/2015/03/bookstore-carousel-light-bucharest-romania1.jpg" alt=""> 
+<div class="row col-md-12" ng-controller="IndexController">
+  <div class="col-md-12" style="margin-bottom: 20px; padding: 0px !important;">
+    <div id="hero" class="yarr-large-margin-bottom">
+        <img src="/static/images/hero.jpg" alt="">
+    </div>
   </div>
-</div>
-  </div>
-   <div class="col-md-10 col-xs-offset-1" style="margin-bottom: 20px;">
-   <div class="yarr-header"><h1 class="col-md-8">Browse through restaurants</h1>
+  <div class="col-md-10 col-xs-offset-1" style="margin-bottom: 20px;">
+  <div class="yarr-header"><h1 class="col-md-8">Browse through restaurants</h1>
     <form name="form" ng-submit="search()" class="col-md-4 yarr-search">
         <div class="input-group">
           <input type="text" class="form-control" ng-model="searchTerm" placeholder="Type a name or address... " autofocus />
@@ -20,9 +14,9 @@
           </span>
         </div>
       </form>
-   </div>
-   </div>
-  <div class="col-md-10 place-card col-xs-offset-1" ng-repeat="place in places">
+  </div>
+  </div>
+  <div class="col-md-10 place-card col-xs-offset-1" ng-repeat="place in places | orderBy : 'average_stars == null ? 0 : -average_stars'">
     <div class="yarr-container container-fluid" ui-sref="place({ id: place.id })">
       <div class="col-md-6 row-fluid" style="margin-top: 10px; margin-bottom: 5px;">
        <div class="yarr-thumb"><a href><img style="width: 100%;" ng-src="{{ place.image_url }}" class="img-thumbnail" /></a></div>
@@ -33,10 +27,13 @@
           <p>
             {{ place.address }}
           </p>
-          <p ng-if="place.phone_number1">
-            <span style="font-weight: bold; font-size: 16px; color: #bf3e11;">Telefon:</span> {{ place.phone_number1 }}
-          </p>
-          <ratingstars ng-model="place.average_stars" min="0" max="5" input-disabled="true" show-clear="false" size="sm" step="0.1"/>
+          <div ng-if="place.phone_number1 || place.phone_number2">
+            <span style="font-weight: bold; font-size: 16px; color: #bf3e11;">Telefon:</span> 
+            <span ng-if="place.phone_number1"> {{ place.phone_number1 }} </span>
+            <span ng-if="place.phone_number1 && place.phone_number2"> , </span>
+            <span ng-if="place.phone_number2"> {{ place.phone_number2 }} </span>
+          </div>
+          <ratingstars ng-model="place.average_stars" min="0" max="5" show-caption="true" input-disabled="true" show-clear="false" size="md" step="0.1"/>
         </div>
       </div>
       <div class="clearfix"></div>
@@ -50,20 +47,14 @@
       <i class="glyphicon glyphicon-refresh fa-spin" ng-class="{ 'hidden': !loading }"></i>
     </button>
   </div>
-</div>
-    <div  id="map" class="col-md-12">
-      <map center="{{[ places[0].location_lat, places[0].location_lon ]}}" zoom="12">
-        <marker
-          position="[{{ place.location_lat }}, {{ place.location_lon }}]"
-          title="{{ place.name }}"
-          ng-repeat="place in places"></marker>
-      </map>
-    </div>
-<div id="footer" class="col-md-12 text-center">
-	<div class="container">
-		<div class="row">
-    		<div class="text-center footer-info medium-opacity">© YARR 2015   •   13 Universitate, Bucharest   •   Tel: 71494563   •   Handcrafted with love by YARR Team</div>
-            <p class="text-center medium-opacity">PERMISSIONS AND COPYRIGHT  • CONTACT THE TEAM</p>
-		</div>
-    </div>
+
+  <div id="map" class="col-md-12">
+    <map center="{{ [44.4268, 26.1025] }}" zoom="12">
+      <marker
+        position="{{ [place.location_lat, place.location_lon] }}"
+        title="{{ place.name }}"
+        ng-repeat="place in places"></marker>
+    </map>
+  </div>
+
 </div>
