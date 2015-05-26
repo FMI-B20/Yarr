@@ -140,6 +140,64 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
         history_object.save()
         #print('lala ' + str(int(search_info['cuisines_arg'][0])))
 
+    def refine_set(self, recommended_queryset):
+        recent_hist = RecommandationHistory.objects.filter(user = self.request.user).order_by('time')
+        recent_hist = recent_hist[max(0, len(recent_hist) - 10):]
+
+        recent_hist.reverse()
+
+        cache = dict()
+
+        for item in recent_hist:
+            all_cuisines = item.cuisines.all()
+            all_locations = item.location_types.all()
+
+            for cuis in all_cuisines:
+                if cuis.name not in cache.keys():
+                    cache[cuis.name] = 1
+                else:
+                    cache[cuis.name] += 1
+
+            for loc in all_locations:
+                if loc.name not in cache.keys():
+                    cache[loc.name] = 1
+                else:
+                    cache[loc.name] += 1
+
+        scores = dict()
+
+        for item in recommended_queryset:
+
+            cur_sum = 0
+            for cuisine in item.cuisines.all():
+                if cuisine.name in cache.keys():
+                    cur_sum += cache[cuisine.name]
+            scores[item] = cur_sum
+
+
+        def compare_function(x, y):
+            if scores[x] == scores[y]:
+                avgx = x.average_stars
+                avgy = y.average_stars
+
+                if avgx == None:
+                    agvx = 0.0
+                if avgy == None:
+                    avgy = 0.0
+
+                if avgx < avgy:
+                    return -1
+                if avgx == avgy:
+                    return 0
+                if avgx > avgy:
+                    return 1
+            if scores[x] < scores[y]:
+                return -1
+            return 1
+
+        recommended_queryset = sorted(recommended_queryset, cmp=compare_function, reverse=True)
+        return recommended_queryset
+
     def get_queryset(self):
 
         cuisines_arg = self.request.QUERY_PARAMS.get('cuisines', None)
@@ -189,7 +247,6 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
             if types_json_list:
                 recommended_queryset = recommended_queryset.filter(location_types__pk__in = types_json_list)
 
-        print('types ... ' + str(types_arg))
         radius = 100
         
         if radius_arg is not None:
@@ -213,5 +270,9 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
                 recommended_queryset = filter(lambda x: (distance_meters(lat, lng, float(x.location_lat), float(x.location_lon)) <= radius), recommended_queryset)
             except ValueError:
                 pass
+
+
+        if self.request.user.is_anonymous() != True:
+            recommended_queryset = self.refine_set(recommended_queryset)
 
         return recommended_queryset
