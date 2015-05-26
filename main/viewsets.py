@@ -4,7 +4,7 @@ from rest_framework import viewsets, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.decorators import detail_route, list_route
+from rest_framework.response import Response
 from .serializers import UserSerializer, PlaceSerializer
 from .serializers import RatingSerializer, CuisineSerializer, LocationTypeSerializer
 from main.models import User,Place,Rating,Cuisine,LocationType
@@ -75,9 +75,13 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
     model = Place
     serializer_class = PlaceSerializer
     authentication_classes = [TokenAuthentication]
-    permission_classes = []    
+    permission_classes = [] 
+
+    def retrieve(self, request, pk=None):
+        return Response(status=403)  
 
     def get_queryset(self):
+
         cuisines_arg = self.request.QUERY_PARAMS.get('cuisines', None)
         types_arg = self.request.QUERY_PARAMS.get('locationtypes', None)
 
