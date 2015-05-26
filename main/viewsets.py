@@ -7,7 +7,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from .serializers import UserSerializer, PlaceSerializer
 from .serializers import RatingSerializer, CuisineSerializer, LocationTypeSerializer
-from main.models import User,Place,Rating,Cuisine,LocationType
+from main.models import User, Place, Rating, Cuisine, LocationType, RecommandationHistory
 
 import math
 import json
@@ -78,7 +78,50 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [] 
 
     def retrieve(self, request, pk=None):
-        return Response(status=403)  
+        return Response(status=403)
+
+    def retrieve_last_query(self):
+       all_hist = RecommandationHistory.objects.filter(user = self.request.user).order_by('time')
+
+       #don't for what reason doesn't support negative index
+       return all_hist[ len(all_hist) - 1 ]
+
+    def update_history(self, search_info):
+
+        if self.request.user.is_anonymous():
+            return 0
+
+        last_query = self.retrieve_last_query()
+
+        print('last location ' + str(last_query.location_types))
+        print('last cuisines ' + str(last_query.cuisines))
+      
+        history_object = RecommandationHistory(
+            user = self.request.user,
+            location_lat = search_info['lat_arg'],
+            location_lon = search_info['lng_arg'],
+            radius = search_info['radius_arg'])
+
+        history_object.save()
+        if search_info['types_arg'] != None:
+            for loc_type in search_info['types_arg']:
+                location_instance = LocationType(loc_type)
+                history_object.location_types.add(location_instance)
+
+        if search_info['cuisines_arg'] != None:
+            for cuisine_name in search_info['cuisines_arg']:
+                cuisine_instance = Cuisine(cuisine_name)
+                cuisine_instance.save()
+                history_object.cuisines.add(cuisine_instance)
+
+        if last_query.location_types == history_object.location_types:
+            if last_query.cuisines == history_object.cuisines:
+                #don't care, this query came from 'more results'
+                print('omg same search!!!')
+                return 0
+
+        history_object.save()
+        #print('lala ' + str(int(search_info['cuisines_arg'][0])))
 
     def get_queryset(self):
 
@@ -113,7 +156,11 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
         lng_arg = self.request.QUERY_PARAMS.get('lng', None)
         radius_arg = self.request.QUERY_PARAMS.get('radius', None)
 
+
         recommended_queryset = Place.objects.all()
+
+        cuisines_json_list = None
+        types_json_list = None
 
         if cuisines_arg is not None:
             cuisines_json_list = json.loads(cuisines_arg)
@@ -133,12 +180,20 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
             except ValueError:
               pass
 
+        self.update_history({
+            'cuisines_arg': cuisines_json_list,
+            'types_arg': types_json_list,
+            'lat_arg': lat_arg,
+            'lng_arg': lng_arg,
+            'radius_arg': radius_arg
+        })
+
         if lat_arg is not None and lng_arg is not None:
             try:
                 lat = float(lat_arg)
                 lng = float(lng_arg)
                 recommended_queryset = filter(lambda x: (distance_meters(lat, lng, float(x.location_lat), float(x.location_lon)) <= radius), recommended_queryset)
             except ValueError:
-                pass      
-        
+                pass
+
         return recommended_queryset
