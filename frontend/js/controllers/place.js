@@ -52,10 +52,12 @@ yarr.controller('PlaceController', ['$scope', '$stateParams', '$state' , 'Places
   }
   
   $scope.userHasRating = false;
+  $scope.userRatingId = null;
 
   if ($scope.initialRatingData.user) {
     Ratings.query({place: $scope.initialRatingData.place, user: $scope.initialRatingData.user}).$promise.then(function(data) {
       if (data.length > 0) {
+        $scope.userRatingId = data[0].id;
         $scope.userHasRating = true;
         $scope.ratingData.stars = data[0].stars;
         $scope.ratingData.commentary = data[0].commentary;
@@ -67,9 +69,8 @@ yarr.controller('PlaceController', ['$scope', '$stateParams', '$state' , 'Places
 
   $scope.submitRating = function() {
     var serializedRating = JSON.stringify($scope.ratingData);
-    console.log(serializedRating);
     if ($scope.userHasRating) {
-      Ratings.update(serializedRating).$promise.then(function(response) {
+      Ratings.update({ id : $scope.userRatingId } ,serializedRating).$promise.then(function(response) {
         alert('Rating updated!');
         $state.transitionTo($state.current, $stateParams, {
           reload: true,
