@@ -141,3 +141,8 @@ padding-right: 0px !important;
 {
 	padding: 0px !important;
 }
+
+#hero img {
+max-width: 102.2%;
+height: auto;
+}
