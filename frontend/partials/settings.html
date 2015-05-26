@@ -1,4 +1,3 @@
-<link href="../css/app.css" rel="stylesheet" type="text/css" />
 <div ng-controller="SettingsController" class="row">
   <div class="col-md-10 col-xs-offset-1 yarr-large-margin-top">
 	 <div class="yarr-header"><h1 class="col-md-8">Get a recommendation</h1></div>
@@ -43,7 +42,7 @@
         multiple
         theme="bootstrap">
           <ui-select-match placeholder="Enter some location types...">{{ $item.name }}</ui-select-match>
-          <ui-select-choices repeat="locationType in locationTypes track by locationType.id">
+          <ui-select-choices class="btn-primary" repeat="locationType in locationTypes track by locationType.id">
             <div>{{ locationType.name }}</div>
           </ui-select-choices>
       </ui-select>
