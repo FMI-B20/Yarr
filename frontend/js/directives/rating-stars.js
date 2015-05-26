@@ -12,7 +12,7 @@ yarr.directive('ratingstars', function($parse){
             	scope.$watch(modelAccessor, function (value) {
                		angular.element(elem).rating('update', value);
             	});
-            	angular.eleelementm(elem).on('rating.change', function(event, value, caption) {
+            	angular.element(elem).on('rating.change', function(event, value, caption) {
             		modelAccessor.assign(scope, value);
             	});
 	      	};
