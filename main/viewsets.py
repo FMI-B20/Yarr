@@ -84,7 +84,7 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
        all_hist = RecommandationHistory.objects.filter(user = self.request.user).order_by('time')
 
        #don't for what reason doesn't support negative index
-       return all_hist[ len(all_hist) - 1 ]
+       return all_hist[len(all_hist) - 1]
 
     def update_history(self, search_info):
 
@@ -93,9 +93,6 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
 
         last_query = self.retrieve_last_query()
 
-        print('last location ' + str(last_query.location_types))
-        print('last cuisines ' + str(last_query.cuisines))
-      
         history_object = RecommandationHistory(
             user = self.request.user,
             location_lat = search_info['lat_arg'],
@@ -103,21 +100,41 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
             radius = search_info['radius_arg'])
 
         history_object.save()
+
+        cur_cuisines = set()
+        cur_locations = set()
+
         if search_info['types_arg'] != None:
-            for loc_type in search_info['types_arg']:
-                location_instance = LocationType(loc_type)
-                history_object.location_types.add(location_instance)
+            loc_instances = LocationType.objects.filter(
+                pk__in=search_info['types_arg']);
+
+            for item in loc_instances:
+                history_object.location_types.add(item)
+
+            for item in loc_instances.values('name'):
+                cur_cuisines.add(item['name'])
 
         if search_info['cuisines_arg'] != None:
-            for cuisine_name in search_info['cuisines_arg']:
-                cuisine_instance = Cuisine(cuisine_name)
-                cuisine_instance.save()
-                history_object.cuisines.add(cuisine_instance)
+            cuisine_instances = Cuisine.objects.filter(
+                pk__in = search_info['cuisines_arg']);
 
-        if last_query.location_types == history_object.location_types:
-            if last_query.cuisines == history_object.cuisines:
+            for item in cuisine_instances:
+                history_object.cuisines.add(item)
+
+            for item in cuisine_instances.values('name'):
+                cur_cuisines.add(item['name'])
+
+        
+        last_locations = set(item.name for item in last_query.location_types.all())
+        last_cuisines = set(item.name for item in last_query.cuisines.all())
+
+        #print('last query ' + str(last_locations) + " " + str(last_cuisines))
+        #print('cur query ' + str(cur_locations) + " " + str(cur_cuisines))
+
+        if last_cuisines == cur_cuisines:
+            if last_locations == cur_locations:
                 #don't care, this query came from 'more results'
-                print('omg same search!!!')
+                history_object.delete()
                 return 0
 
         history_object.save()
@@ -172,6 +189,7 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
             if types_json_list:
                 recommended_queryset = recommended_queryset.filter(location_types__pk__in = types_json_list)
 
+        print('types ... ' + str(types_arg))
         radius = 100
         
         if radius_arg is not None:
