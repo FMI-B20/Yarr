@@ -35,7 +35,7 @@
           <p ng-if="place.phone_number1">
             <b>Telefon:</b> {{ place.phone_number1 }}
           </p>
-          <input type="number" rating-stars-value="{{ place.average_stars }}" rating-stars-options="{disabled: true, showClear : false, size : 'sm', step : 0.1}">
+          <ratingstars mihai="{{ place.name }}" ng-model="place.average_stars" min="0" max="5" input-disabled="true" show-clear="false" size="sm" step="0.1"/>
         </div>
       </div>
       <div class="clearfix"></div>

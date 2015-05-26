@@ -2,7 +2,7 @@
   <div class="col-md-8">
     <h1>{{ place.name }}</h1>    
     <p>Address: {{ place.address }}</p>
-    <input type="number" rating-stars-value="{{ place.average_stars }}" rating-stars-options="{disabled: true, showClear : false, size : 'sm', step : 0.1}">
+    <ratingstars ng-model="place.average_stars" min="0" max="5" input-disabled="true" show-clear="false" size="sm" step="0.1"/>
     <b>{{ ratings.length }} reviews </b>
   </div>
   <div class="col-md-4">
@@ -21,10 +21,7 @@
 
   <div class="col-md-12 text-center" ng-show="writeRating">
     Your rating
-    <input type="number" 
-    rating-stars-value="0" 
-    rating-stars-options="{disabled: false, showClear : false, size : 'sm', step : 1}" 
-    rating-stars-on-rating-change="onRatingChange">
+    <ratingstars ng-model="ratingData.stars" min="0" max="5" input-disabled="false" show-clear="false" size="sm" step="1"/>
     <textarea rows="4" cols="50" ng-model="ratingData.commentary">
     </textarea>
     <br>
@@ -48,7 +45,7 @@
           <p> at {{ rating.time }} <p>
         </div>
         <div class="col-md-10">
-          <input type="number" rating-stars-value="{{ rating.stars }}" rating-stars-options="{disabled: true, showClear : false, size : 'sm', step : 1}">   
+          <ratingstars ng-model="rating.stars" min="0" max="5" input-disabled="true" show-clear="false" size="sm" step="1"/>   
           <h3> {{ rating.commentary }} <h3>
         </div>
       </div>

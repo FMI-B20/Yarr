@@ -66,13 +66,16 @@ class RecommandationHistory(models.Model):
         return "[{}, {}, {}, {}]".format(unicode(self.user), unicode(self.time), str(location_types), str(cuisines))
 
 class Rating(models.Model):
-    user = models.ForeignKey(User, null = True)
+    user = models.ForeignKey(User, null=True,blank=True)
     place = models.ForeignKey(Place)
     time = models.DateTimeField(auto_now_add=True)
     stars = models.SmallIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
     commentary = models.TextField()
+
+    class Meta:
+        unique_together = (("user", "place"),)
 
     def __unicode__(self):
         return "[{}, {}]".format(unicode(self.user), unicode(self.place))

@@ -1,6 +1,6 @@
 yarr.controller('PlaceController', ['$scope', '$timeout', '$stateParams', 'Places', 'Ratings', 'Users', function($scope, $timeout, $stateParams, Places, Ratings, Users) {
   $scope.place = Places.get({ id: $stateParams.id });
-  $scope.ratings = Ratings.query({ place: $stateParams.id, limit: 2 });
+  $scope.ratings = Ratings.query({ place: $stateParams.id });
   $scope.ratings.$promise.then(function(ratings) {
     var functionForger = function(index) {
       return function(user) {
@@ -37,13 +37,19 @@ yarr.controller('PlaceController', ['$scope', '$timeout', '$stateParams', 'Place
     commentary : null,
     place : $stateParams.id
   };
+  $scope.userHasRating = false;
 
-  $scope.onRatingChange = function(event, value, caption) {
-    $scope.ratingData.stars = value;
-  };
+  Ratings.query({place: $stateParams.id, user: 2}).$promise.then(function(data) {
+    if (data.length > 0) {
+      $scope.userHasRating = true;
+      $scope.ratingData = data[0];
+      console.log($scope.ratingData);
+    }
+  });
 
   $scope.submitRating = function() {
     var serializedRating = JSON.stringify($scope.ratingData);
+    console.log(serializedRating);
     Ratings.save(serializedRating).$promise.then(function(response){
       alert('Rating submitted!');
     }, function(error) {

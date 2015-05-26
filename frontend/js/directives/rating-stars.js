@@ -1,26 +1,21 @@
-yarr.directive('ratingStarsOptions', function() {
+yarr.directive('ratingstars', function($parse){
     return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            $(element).rating('create', scope.$eval(attrs.ratingStarsOptions));
-        }
-    };
-});
+        restrict: 'E',
+        compile: function(element,attrs) {
 
-yarr.directive('ratingStarsValue', function() {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            $(element).rating('update', attrs.ratingStarsValue);
-        }
-    };
-});
+        	var modelAccessor = $parse(attrs.ngModel);
+        	//angular.element(element).rating('create');
 
-yarr.directive('ratingStarsOnRatingChange', function() {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            $(element).on('rating.change', scope.$eval(attrs.ratingStarsOnRatingChange));
-        }
+        	// linking function here.
+	      	return function(scope,elem,attrs) {
+	        	angular.element(elem).rating('create', {disabled: attrs.inputDisabled == "true", showClear : attrs.showClear == "true", size : attrs.size, step : attrs.step, min : attrs.min, max : attrs.max});
+            	scope.$watch(modelAccessor, function (value) {
+               		angular.element(elem).rating('update', value);
+            	});
+            	angular.eleelementm(elem).on('rating.change', function(event, value, caption) {
+            		modelAccessor.assign(scope, value);
+            	});
+	      	};
+	    }
     };
 });
