@@ -50,6 +50,21 @@ class Place(models.Model):
         return "[{}, {}, {}, {}, {}, {}, {}]".format(self.name, str(self.address), str(self.phone_number1), str(self.phone_number2), str(self.image_url), str(self.location_lat), str(self.location_lon))
 
 
+class RecommandationHistory(models.Model):
+
+    user = models.ForeignKey(User, null=True)
+    time = models.DateTimeField(auto_now_add=True)
+
+    location_types = models.ManyToManyField(LocationType)
+    cuisines = models.ManyToManyField(Cuisine)
+
+    location_lat = models.FloatField()
+    location_lon = models.FloatField()
+    radius = models.FloatField()
+
+    def __unicode__(self):
+        return "[{}, {}, {}, {}]".format(unicode(self.user), unicode(self.time), str(location_types), str(cuisines))
+
 class Rating(models.Model):
     user = models.ForeignKey(User, null = True)
     place = models.ForeignKey(Place)
