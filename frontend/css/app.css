@@ -191,3 +191,7 @@ position:absolute;
 i{
 	margin: 0px 5px;
 }
+
+#settings span{
+color: #fff !important;
+}

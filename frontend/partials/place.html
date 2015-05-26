@@ -11,7 +11,8 @@
   <div class="col-md-10 col-xs-offset-1 yarr-large-margin-top">
     <div class="yarr-header"><h1 class="col-md-8">Details</h1></div>
     <h2><span><i class="fa fa-map-marker"></i>Address: </span> {{ place.address }}</h2>
-    <h2><span><i class="fa fa-pencil"></i>Rating:</span>
+    <div class="clearfix"></div>
+    <h2 class="pull-left"><span><i class="fa fa-pencil"></i>Rating:</span>
     <h5><ratingstars ng-model="place.average_stars" min="0" max="5" input-disabled="true" show-clear="false" size="sm" step="0.1" class="pull-left"/>
     {{ ratings.length }} reviews </h5>
     </h2>
@@ -24,8 +25,8 @@
     </button>
   </div>
 
-  <div class="col-md-10 col-xs-offset-1" ng-show="!writeRating && userHasRating" style="border-top: 1px solid #eee; margin-top: 30px;">
-    <h2><span>Your rating</span></h2>
+  <div class="col-md-10 col-xs-offset-1" ng-show="!writeRating && userHasRating" style=" margin-top: 30px;">
+    <div class="yarr-header"><h1 class="col-md-8">Your rating</h1></div>
     <ratingstars ng-model="ratingData.stars" min="0" max="5" input-disabled="true" show-clear="false" size="sm" step="1"/>
     <h4>
       {{ ratingData.commentary }}
