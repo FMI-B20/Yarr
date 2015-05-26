@@ -1,6 +1,8 @@
 yarr.factory('Auth', ['$cookies', function($cookies) {
   var Auth;
   var userCallbacks = [];
+  $cookies.user = null;
+  $cookies.token = null;
   var userNotify = function() {
     for(var i=0; i<userCallbacks.length; i++) {
       userCallbacks[i](Auth.user());
@@ -9,7 +11,6 @@ yarr.factory('Auth', ['$cookies', function($cookies) {
 
   Auth = {
     user: function() {
-      console.log($cookies.user)
       var user = JSON.parse($cookies.user);
       if(user) {
         user.token = $cookies.token;

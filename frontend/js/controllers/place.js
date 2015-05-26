@@ -1,4 +1,4 @@
-yarr.controller('PlaceController', ['$scope', '$timeout', '$stateParams', 'Places', 'Ratings', 'Users', function($scope, $timeout, $stateParams, Places, Ratings, Users) {
+yarr.controller('PlaceController', ['$scope', '$stateParams', '$state' , 'Places', 'Ratings', 'Users', 'Auth', function($scope, $stateParams, $state, Places, Ratings, Users, Auth) {
   $scope.place = Places.get({ id: $stateParams.id });
   $scope.ratings = Ratings.query({ place: $stateParams.id });
   $scope.ratings.$promise.then(function(ratings) {
@@ -34,32 +34,63 @@ yarr.controller('PlaceController', ['$scope', '$timeout', '$stateParams', 'Place
   $scope.writeRating = false;
   $scope.ratingData = {
     stars : null,
-    commentary : null
+    commentary : null,
+    place : $stateParams.id,
+    user : null
   };
+
   $scope.initialRatingData = {
     stars : null,
-    commentary : null
+    commentary : null,
+    place : $stateParams.id, 
+    user: null
   }
+
+  if (Auth.user()) {
+    $scope.ratingData.user = Auth.user().id;
+    $scope.initialRatingData.user = Auth.user().id;
+  }
+  
   $scope.userHasRating = false;
 
-  Ratings.query({place: $stateParams.id, user: 2}).$promise.then(function(data) {
-    if (data.length > 0) {
-      $scope.userHasRating = true;
-      $scope.ratingData.stars = data[0].stars;
-      $scope.ratingData.commentary = data[0].commentary;
-      $scope.initialRatingData.stars = data[0].stars;
-      $scope.initialRatingData.commentary = data[0].commentary;
-    }
-  });
+  if ($scope.initialRatingData.user) {
+    Ratings.query({place: $scope.initialRatingData.place, user: $scope.initialRatingData.user}).$promise.then(function(data) {
+      if (data.length > 0) {
+        $scope.userHasRating = true;
+        $scope.ratingData.stars = data[0].stars;
+        $scope.ratingData.commentary = data[0].commentary;
+        $scope.initialRatingData.stars = data[0].stars;
+        $scope.initialRatingData.commentary = data[0].commentary;
+      }
+    });
+  }  
 
   $scope.submitRating = function() {
     var serializedRating = JSON.stringify($scope.ratingData);
     console.log(serializedRating);
-    Ratings.save(serializedRating).$promise.then(function(response){
-      alert('Rating submitted!');
-    }, function(error) {
-      alert('Unable to submit rating!');
-    });
+    if ($scope.userHasRating) {
+      Ratings.update(serializedRating).$promise.then(function(response) {
+        alert('Rating updated!');
+        $state.transitionTo($state.current, $stateParams, {
+          reload: true,
+          inherit: false,
+          notify: true
+        });
+      }, function(error) {
+        alert('Unable to update rating!');
+      });
+    } else {
+      Ratings.save(serializedRating).$promise.then(function(response){
+        alert('Rating submitted!');
+        $state.transitionTo($state.current, $stateParams, {
+          reload: true,
+          inherit: false,
+          notify: true
+        });
+      }, function(error) {
+        alert('Unable to submit rating!');
+      });
+    }    
   };
 
   $scope.cancelWriteRating = function() {
