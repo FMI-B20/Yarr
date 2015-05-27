@@ -80,65 +80,82 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
     def retrieve(self, request, pk=None):
         return Response(status=403)
 
-    def retrieve_last_query(self):
-       all_hist = RecommandationHistory.objects.filter(user = self.request.user).order_by('time')
-
-       #don't for what reason doesn't support negative index
-       return all_hist[len(all_hist) - 1]
+    def distance_meters(self, lat1, long1, lat2, long2): 
+            # Convert latitude and longitude to
+            # spherical coordinates in radians.
+            degrees_to_radians = math.pi/180.0                 
+            # phi = 90 - latitude
+            phi1 = (90.0 - lat1)*degrees_to_radians
+            phi2 = (90.0 - lat2)*degrees_to_radians                 
+            # theta = longitude
+            theta1 = long1*degrees_to_radians
+            theta2 = long2*degrees_to_radians                 
+            # Compute spherical distance from spherical coordinates.                 
+            # For two locations in spherical coordinates
+            # (1, theta, phi) and (1, theta, phi)
+            # cosine( arc length ) =
+            #    sin phi sin phi' cos(theta-theta') + cos phi cos phi'
+            # distance = rho * arc length             
+            cos = (math.sin(phi1)*math.sin(phi2)*math.cos(theta1 - theta2) +
+                   math.cos(phi1)*math.cos(phi2))
+            arc = math.acos( cos )         
+            # Remember to multiply arc by the radius of the earth
+            # in your favorite set of units to get length.
+            # we need the distance in meters (http://www.johndcook.com/blog/python_longitude_latitude/)
+            return arc * 6373 * 1000
 
     def update_history(self, search_info):
 
         if self.request.user.is_anonymous():
             return 0
 
-        last_query = self.retrieve_last_query()
-
         history_object = RecommandationHistory(
             user = self.request.user,
-            location_lat = search_info['lat_arg'],
-            location_lon = search_info['lng_arg'],
-            radius = search_info['radius_arg'])
+            location_lat = search_info['lat'],
+            location_lon = search_info['lng'],
+            radius = search_info['radius'])
 
-        history_object.save()
+        all_history = RecommandationHistory.objects.filter(user = self.request.user).order_by('-time')       
+
+        if not all_history:
+            history_object.save()
+            return 1
+
+        last_history_object = all_history[0]        
 
         cur_cuisines = set()
         cur_locations = set()
 
-        if search_info['types_arg'] != None:
+        if search_info['location_types'] != None:
             loc_instances = LocationType.objects.filter(
-                pk__in=search_info['types_arg']);
+                pk__in=search_info['location_types']);
 
             for item in loc_instances:
                 history_object.location_types.add(item)
+                cur_locations.add(item.name)
 
-            for item in loc_instances.values('name'):
-                cur_cuisines.add(item['name'])
-
-        if search_info['cuisines_arg'] != None:
+        if search_info['cuisines'] != None:
             cuisine_instances = Cuisine.objects.filter(
-                pk__in = search_info['cuisines_arg']);
+                pk__in = search_info['cuisines']);
 
             for item in cuisine_instances:
                 history_object.cuisines.add(item)
-
-            for item in cuisine_instances.values('name'):
-                cur_cuisines.add(item['name'])
-
+                cur_cuisines.add(item.name)
         
-        last_locations = set(item.name for item in last_query.location_types.all())
-        last_cuisines = set(item.name for item in last_query.cuisines.all())
-
-        #print('last query ' + str(last_locations) + " " + str(last_cuisines))
-        iprint('cur query ' + str(cur_locations) + " " + str(cur_cuisines))
+        last_locations = set(item.name for item in last_history_object.location_types.all())
+        last_cuisines = set(item.name for item in last_history_object.cuisines.all())
 
         if last_cuisines == cur_cuisines:
             if last_locations == cur_locations:
-                #don't care, this query came from 'more results'
-                history_object.delete()
-                return 0
+                if history_object.location_lat == last_history_object.location_lat:
+                    if self.distance_meters(last_history_object.location_lat, last_history_object.location_lon, history_object.location_lat, history_object.location_lon) < 1:
+                        if last_history_object.radius == history_object.radius:
+                            #don't care, this query came from 'more results'
+                            print "The same"
+                            return 0
 
         history_object.save()
-        #print('lala ' + str(int(search_info['cuisines_arg'][0])))
+        return 1
 
     def refine_set(self, recommended_queryset, k_threshold):
         recent_hist = RecommandationHistory.objects.filter(user = self.request.user).order_by('time')
@@ -193,31 +210,7 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
 
         cuisines_arg = self.request.QUERY_PARAMS.get('cuisines', None)
-        types_arg = self.request.QUERY_PARAMS.get('locationtypes', None)
-
-        def distance_meters(lat1, long1, lat2, long2): 
-            # Convert latitude and longitude to
-            # spherical coordinates in radians.
-            degrees_to_radians = math.pi/180.0                 
-            # phi = 90 - latitude
-            phi1 = (90.0 - lat1)*degrees_to_radians
-            phi2 = (90.0 - lat2)*degrees_to_radians                 
-            # theta = longitude
-            theta1 = long1*degrees_to_radians
-            theta2 = long2*degrees_to_radians                 
-            # Compute spherical distance from spherical coordinates.                 
-            # For two locations in spherical coordinates
-            # (1, theta, phi) and (1, theta, phi)
-            # cosine( arc length ) =
-            #    sin phi sin phi' cos(theta-theta') + cos phi cos phi'
-            # distance = rho * arc length             
-            cos = (math.sin(phi1)*math.sin(phi2)*math.cos(theta1 - theta2) +
-                   math.cos(phi1)*math.cos(phi2))
-            arc = math.acos( cos )         
-            # Remember to multiply arc by the radius of the earth
-            # in your favorite set of units to get length.
-            # we need the distance in meters (http://www.johndcook.com/blog/python_longitude_latitude/)
-            return arc * 6373 * 1000
+        types_arg = self.request.QUERY_PARAMS.get('locationtypes', None)        
 
         lat_arg = self.request.QUERY_PARAMS.get('lat', None)
         lng_arg = self.request.QUERY_PARAMS.get('lng', None)
@@ -247,21 +240,25 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
             except ValueError:
               pass
 
-        self.update_history({
-            'cuisines_arg': cuisines_json_list,
-            'types_arg': types_json_list,
-            'lat_arg': lat_arg,
-            'lng_arg': lng_arg,
-            'radius_arg': radius_arg
-        })
+        history_info = {
+            'cuisines': cuisines_json_list,
+            'location_types': types_json_list,
+            'lat': None,
+            'lng': None,
+            'radius': radius
+        }
 
         if lat_arg is not None and lng_arg is not None:
             try:
                 lat = float(lat_arg)
                 lng = float(lng_arg)
-                recommended_queryset = filter(lambda x: (distance_meters(lat, lng, float(x.location_lat), float(x.location_lon)) <= radius), recommended_queryset)
+                recommended_queryset = filter(lambda x: (self.distance_meters(lat, lng, float(x.location_lat), float(x.location_lon)) <= radius), recommended_queryset)
+                history_info['lat'] = lat;
+                history_info['lng'] = lng;
             except ValueError:
                 pass
+
+        self.update_history(history_info)
 
         if self.request.user.is_anonymous() != True:
             #take the last 30 recommandations

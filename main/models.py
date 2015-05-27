@@ -58,9 +58,9 @@ class RecommandationHistory(models.Model):
     location_types = models.ManyToManyField(LocationType)
     cuisines = models.ManyToManyField(Cuisine)
 
-    location_lat = models.FloatField()
-    location_lon = models.FloatField()
-    radius = models.FloatField()
+    location_lat = models.FloatField(null=True)
+    location_lon = models.FloatField(null=True)
+    radius = models.FloatField(null=True)
     
     def __unicode__(self):
         return "[{}, {}, {}, {}]".format(unicode(self.user), unicode(self.time), str(self.cuisines), str(self.location_types))
