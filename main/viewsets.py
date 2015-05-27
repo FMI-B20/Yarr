@@ -26,7 +26,7 @@ class PlaceViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.DjangoFilterBackend]
 
     def get_queryset(self):
-        queryset = Place.objects.all()
+        queryset = Place.objects.all().order_by('-rating')
 
         if self.request.query_params.get('search'):
             search = self.request.query_params['search']
