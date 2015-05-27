@@ -24,6 +24,7 @@ class PlaceSerializer(serializers.ModelSerializer):
             'id', 'name', 'address', 'phone_number1', 'phone_number2', 'location_types', 'cuisines',
             'location_lat', 'location_lon', 'image_url', 'average_stars'
         )
+        depth = 1
 
 
 class RatingSerializer(serializers.ModelSerializer):

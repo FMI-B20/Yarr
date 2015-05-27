@@ -13,6 +13,8 @@
   <div class="col-md-10 col-xs-offset-1 yarr-large-margin-top">
     <div class="yarr-header"><h1 class="col-md-8">Details</h1></div>
     <h2><span><i class="fa fa-map-marker"></i>Address: </span> {{ place.address }}</h2>
+    <h2><span><i class="fa fa-map-marker"></i>Cuisines: </span> <span style="color : black" ng-repeat = "cuisine in place.cuisines">{{ cuisine.name }} <span> <span></span></h2>
+    <h2><span><i class="fa fa-map-marker"></i>Types: </span> <span style="color : black" ng-repeat = "location_type in place.location_types">{{ location_type.name }} <span> <span></span></h2>
     <div class="clearfix"></div>
   </div>
  
