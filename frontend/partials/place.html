@@ -8,7 +8,7 @@
   <div class="text-center" style="margin-top: 280px; z-index: 100; position:absolute; width: 100%">
     <ratingstars ng-model="place.average_stars" min="0" max="5" input-disabled="true" show-clear="false" show-caption="false" size="lg" step="0.1"/>
   </div>
-  <a href><img style="width: 100%;" ng-src="{{ place.image_url }}" class="img-thumbnail" /></a>
+  <a href><img style="width: 100%;" ng-src="{{ place.image_url }}" class="img-thumbnail" onError="this.onerror=null;this.src='/static/images/dummy_restaurant.png';"/></a>
 </div>
   <div class="col-md-10 col-xs-offset-1 yarr-large-margin-top">
     <div class="yarr-header"><h1 class="col-md-8">Details</h1></div>
