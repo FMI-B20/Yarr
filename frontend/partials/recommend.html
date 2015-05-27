@@ -14,10 +14,13 @@
           <p>
             {{ place.address }}
           </p>
-          <p ng-if="place.phone_number1">
-            <span style="font-weight: bold; font-size: 16px; color: #bf3e11;">Telefon:</span> {{ place.phone_number1 }}
-          </p>
-          <ratingstars mihai="{{ place.name }}" ng-model="place.average_stars" min="0" max="5" input-disabled="true" show-clear="false" size="md" step="0.1"/>
+          <div ng-if="place.phone_number1 || place.phone_number2">
+            <span style="font-weight: bold; font-size: 16px; color: #bf3e11;">Telefon:</span> 
+            <span ng-if="place.phone_number1"> {{ place.phone_number1 }} </span>
+            <span ng-if="place.phone_number1 && place.phone_number2"> , </span>
+            <span ng-if="place.phone_number2"> {{ place.phone_number2 }} </span>
+          </div>
+          <ratingstars ng-model="place.average_stars" min="0" max="5" show-caption="true" input-disabled="true" show-clear="false" size="md" step="0.1"/>
         </div>
       </div>
       <div class="clearfix"></div>

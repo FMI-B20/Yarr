@@ -16,7 +16,7 @@
       </form>
   </div>
   </div>
-  <div class="col-md-10 place-card col-xs-offset-1" ng-repeat="place in places">
+  <div class="col-md-10 place-card col-xs-offset-1" ng-repeat="place in places | orderBy : 'average_stars == null ? 0 : -average_stars'">
     <div class="yarr-container container-fluid" ui-sref="place({ id: place.id })">
       <div class="col-md-6 row-fluid" style="margin-top: 10px; margin-bottom: 5px;">
        <div class="yarr-thumb"><a href><img style="width: 100%;" ng-src="{{ place.image_url }}" class="img-thumbnail" /></a></div>
@@ -27,10 +27,13 @@
           <p>
             {{ place.address }}
           </p>
-          <p ng-if="place.phone_number1">
-            <span style="font-weight: bold; font-size: 16px; color: #bf3e11;">Telefon:</span> {{ place.phone_number1 }}
-          </p>
-          <ratingstars mihai="{{ place.name }}" ng-model="place.average_stars" min="0" max="5" input-disabled="true" show-clear="false" size="md" step="0.1"/>
+          <div ng-if="place.phone_number1 || place.phone_number2">
+            <span style="font-weight: bold; font-size: 16px; color: #bf3e11;">Telefon:</span> 
+            <span ng-if="place.phone_number1"> {{ place.phone_number1 }} </span>
+            <span ng-if="place.phone_number1 && place.phone_number2"> , </span>
+            <span ng-if="place.phone_number2"> {{ place.phone_number2 }} </span>
+          </div>
+          <ratingstars ng-model="place.average_stars" min="0" max="5" show-caption="true" input-disabled="true" show-clear="false" size="md" step="0.1"/>
         </div>
       </div>
       <div class="clearfix"></div>

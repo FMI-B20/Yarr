@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from .serializers import UserSerializer, PlaceSerializer
 from .serializers import RatingSerializer, CuisineSerializer, LocationTypeSerializer
 from main.utils import IsStaffOrReadOnly
-from main.models import User,Place,Rating,Cuisine,LocationType
+from main.models import User,Place,Rating,Cuisine,LocationType,RecommandationHistory
 
 import math
 import json
@@ -78,7 +78,117 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
     authentication_classes = [TokenAuthentication]
 
     def retrieve(self, request, pk=None):
-        return Response(status=403)  
+        return Response(status=403)
+
+    def retrieve_last_query(self):
+       all_hist = RecommandationHistory.objects.filter(user = self.request.user).order_by('time')
+
+       #don't for what reason doesn't support negative index
+       return all_hist[len(all_hist) - 1]
+
+    def update_history(self, search_info):
+
+        if self.request.user.is_anonymous():
+            return 0
+
+        last_query = self.retrieve_last_query()
+
+        history_object = RecommandationHistory(
+            user = self.request.user,
+            location_lat = search_info['lat_arg'],
+            location_lon = search_info['lng_arg'],
+            radius = search_info['radius_arg'])
+
+        history_object.save()
+
+        cur_cuisines = set()
+        cur_locations = set()
+
+        if search_info['types_arg'] != None:
+            loc_instances = LocationType.objects.filter(
+                pk__in=search_info['types_arg']);
+
+            for item in loc_instances:
+                history_object.location_types.add(item)
+
+            for item in loc_instances.values('name'):
+                cur_cuisines.add(item['name'])
+
+        if search_info['cuisines_arg'] != None:
+            cuisine_instances = Cuisine.objects.filter(
+                pk__in = search_info['cuisines_arg']);
+
+            for item in cuisine_instances:
+                history_object.cuisines.add(item)
+
+            for item in cuisine_instances.values('name'):
+                cur_cuisines.add(item['name'])
+
+        
+        last_locations = set(item.name for item in last_query.location_types.all())
+        last_cuisines = set(item.name for item in last_query.cuisines.all())
+
+        #print('last query ' + str(last_locations) + " " + str(last_cuisines))
+        iprint('cur query ' + str(cur_locations) + " " + str(cur_cuisines))
+
+        if last_cuisines == cur_cuisines:
+            if last_locations == cur_locations:
+                #don't care, this query came from 'more results'
+                history_object.delete()
+                return 0
+
+        history_object.save()
+        #print('lala ' + str(int(search_info['cuisines_arg'][0])))
+
+    def refine_set(self, recommended_queryset, k_threshold):
+        recent_hist = RecommandationHistory.objects.filter(user = self.request.user).order_by('time')
+        recent_hist = recent_hist[max(0, len(recent_hist) - k_threshold):]
+
+        recent_hist.reverse()
+
+        cache = dict()
+
+        for item in recent_hist:
+            all_cuisines = item.cuisines.all()
+            all_locations = item.location_types.all()
+            for cuis in all_cuisines:
+                if cuis.name not in cache.keys():
+                    cache[cuis.name] = 1
+                else:
+                    cache[cuis.name] += 1
+
+            for loc in all_locations:
+                if loc.name not in cache.keys():
+                    cache[loc.name] = 1
+                else:
+                    cache[loc.name] += 1
+
+        scores = dict()
+
+        for item in recommended_queryset:
+
+            cur_sum = 0
+            for cuisine in item.cuisines.all():
+                if cuisine.name in cache.keys():
+                    cur_sum += cache[cuisine.name]
+
+            avg = item.average_stars
+
+            if avg is None:
+                avg = 3.0
+
+            scores[item] = avg * cur_sum
+
+        def compare_function(x, y):
+            if scores[x] == scores[y]:
+                return 0
+            if scores[x] < scores[y]:
+                return -1
+            return 1
+
+        recommended_queryset = sorted(recommended_queryset, cmp=compare_function, reverse=True)
+        #print([scores[item] for item in recommended_queryset])
+        return recommended_queryset
 
     def get_queryset(self):
 
@@ -113,7 +223,11 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
         lng_arg = self.request.QUERY_PARAMS.get('lng', None)
         radius_arg = self.request.QUERY_PARAMS.get('radius', None)
 
+
         recommended_queryset = Place.objects.all()
+
+        cuisines_json_list = None
+        types_json_list = None
 
         if cuisines_arg is not None:
             cuisines_json_list = json.loads(cuisines_arg)
@@ -133,12 +247,26 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
             except ValueError:
               pass
 
+        self.update_history({
+            'cuisines_arg': cuisines_json_list,
+            'types_arg': types_json_list,
+            'lat_arg': lat_arg,
+            'lng_arg': lng_arg,
+            'radius_arg': radius_arg
+        })
+
         if lat_arg is not None and lng_arg is not None:
             try:
                 lat = float(lat_arg)
                 lng = float(lng_arg)
                 recommended_queryset = filter(lambda x: (distance_meters(lat, lng, float(x.location_lat), float(x.location_lon)) <= radius), recommended_queryset)
             except ValueError:
-                pass      
-        
+                pass
+
+        if self.request.user.is_anonymous() != True:
+            #take the last 30 recommandations
+            recommended_queryset = self.refine_set(recommended_queryset, 30)
+        else:
+            recommended_queryset = sorted(recommended_queryset, key=lambda x: x.average_stars, reverse = True)
+
         return recommended_queryset

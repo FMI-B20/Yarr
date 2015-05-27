@@ -1,7 +1,7 @@
 yarr.factory('Auth', ['$cookies', function($cookies) {
   var Auth;
+  
   var userCallbacks = [];
-
   var userNotify = function() {
     for(var i=0; i<userCallbacks.length; i++) {
       userCallbacks[i](Auth.user());
@@ -10,7 +10,10 @@ yarr.factory('Auth', ['$cookies', function($cookies) {
 
   Auth = {
     user: function() {
-      var user = JSON.parse($cookies.user);
+      var user = null;
+      if ($cookies.user) {
+        var user = JSON.parse($cookies.user);
+      }
       if(user) {
         user.token = $cookies.token;
       }
@@ -26,7 +29,11 @@ yarr.factory('Auth', ['$cookies', function($cookies) {
       userNotify();
     },
     token: function() {
-      return $cookies.token;
+      if ($cookies.token) {
+        return $cookies.token;
+      } else {
+        return null;
+      }
     },
     clear: function() {
       $cookies.user = null;

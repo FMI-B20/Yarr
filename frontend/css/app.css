@@ -142,8 +142,56 @@ padding-right: 0px !important;
 	padding: 0px !important;
 }
 
+#hero{
+-webkit-box-shadow: inset 1px -11px 48px -1px rgba(0,0,0,0.75);
+-moz-box-shadow: inset 1px -11px 48px -1px rgba(0,0,0,0.75);
+box-shadow: inset 1px -11px 48px -1px rgba(0,0,0,0.75);
+}
+
 #hero img {
 max-width: 102.1%;
 height: auto;
 margin-top: -70px;
+position: relative;
+z-index: -1;
+}
+
+#yarr-cover{
+height: 500px;
+overflow: hidden;
+-webkit-box-shadow: inset 1px -11px 48px -1px rgba(0,0,0,0.75);
+-moz-box-shadow: inset 1px -11px 48px -1px rgba(0,0,0,0.75);
+box-shadow: inset 1px -11px 48px -1px rgba(0,0,0,0.75);
+}
+
+#yarr-cover img
+{
+	margin-top: -100px;
+	position: relative;
+	z-index: -1;
+}
+
+.yarr-overlay{
+opacity: 0.4;
+position: absolute;
+z-index: 100;
+width:102%;
+height:500px;
+background-color: #000;
+color: #fff;
+}
+
+#yarr-cover h1{
+color: #fff;
+z-index: 100;
+width: 102%;
+position:absolute;
+}
+
+i{
+	margin: 0px 5px;
+}
+
+#settings span{
+color: #fff !important;
 }
