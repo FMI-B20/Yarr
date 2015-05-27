@@ -120,6 +120,8 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
         if not all_history:
             history_object.save()
             return 1
+        else:
+            history_object.save()
 
         last_history_object = all_history[0]        
 
@@ -151,6 +153,7 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
                     if self.distance_meters(last_history_object.location_lat, last_history_object.location_lon, history_object.location_lat, history_object.location_lon) < 1:
                         if last_history_object.radius == history_object.radius:
                             #don't care, this query came from 'more results'
+                            history_object.delete()
                             print "The same"
                             return 0
 

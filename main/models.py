@@ -61,9 +61,6 @@ class RecommandationHistory(models.Model):
     location_lat = models.FloatField(null=True)
     location_lon = models.FloatField(null=True)
     radius = models.FloatField(null=True)
-    
-    def __unicode__(self):
-        return "[{}, {}, {}, {}]".format(unicode(self.user), unicode(self.time), str(self.cuisines), str(self.location_types))
 
 class Rating(models.Model):
     user = models.ForeignKey(User, null=True,blank=True)
