@@ -26,7 +26,7 @@ class PlaceViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.DjangoFilterBackend]
 
     def get_queryset(self):
-        queryset = Place.objects.all().order_by('-rating')
+        queryset = Place.objects.all()
 
         if self.request.query_params.get('search'):
             search = self.request.query_params['search']
@@ -207,8 +207,47 @@ class RecomandationViewSet(viewsets.ReadOnlyModelViewSet):
             return 1
 
         recommended_queryset = sorted(recommended_queryset, cmp=compare_function, reverse=True)
+
+        #get new recommandations
+
+        #import pdb; pdb.set_trace()
+        rated_list = Rating.objects.filter(user=self.request.user)
+
+        rated_set = set()
+        for rated_item in rated_list:
+            rated_set.add(rated_item.place.id)
+
+
+        #take the first 3 unrated
+
+        rated_items = list()
+        unrated_items = list()
+        left_over = list()
+        
+        for item_idx in range(len(recommended_queryset)):
+            item = recommended_queryset[item_idx]
+            if item.id in rated_set:
+               rated_items.append(item_idx)
+            else:
+                if len(unrated_items) < 3:
+                    unrated_items.append(item_idx)
+                else:
+                    left_over.append(item_idx)
+
+        recommended_queryset_clone = list()
+        final_order = list()
+
+        for x in unrated_items:
+            final_order.append(x)
+        for x in rated_items:
+            final_order.append(x)
+        for x in left_over:
+            final_order.append(x)
+
+        rec_clone = [recommended_queryset[x] for x in final_order]
+
         #print([scores[item] for item in recommended_queryset])
-        return recommended_queryset
+        return rec_clone
 
     def get_queryset(self):
 
