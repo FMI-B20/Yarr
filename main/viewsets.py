@@ -9,6 +9,7 @@ from .serializers import UserSerializer, PlaceSerializer
 from .serializers import RatingSerializer, CuisineSerializer, LocationTypeSerializer
 from main.utils import IsStaffOrReadOnly
 from main.models import User,Place,Rating,Cuisine,LocationType,RecommandationHistory
+from django.views.decorators.csrf import csrf_exempt
 
 import math
 import json
@@ -18,7 +19,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-
+@csrf_exempt
 class PlaceViewSet(viewsets.ModelViewSet):
     serializer_class = PlaceSerializer
     authentication_classes = [TokenAuthentication]
