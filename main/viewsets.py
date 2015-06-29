@@ -10,6 +10,7 @@ from .serializers import RatingSerializer, CuisineSerializer, LocationTypeSerial
 from main.utils import IsStaffOrReadOnly
 from main.models import User,Place,Rating,Cuisine,LocationType,RecommandationHistory
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 import math
 import json
@@ -26,6 +27,7 @@ class PlaceViewSet(viewsets.ModelViewSet):
     permission_classes = [IsStaffOrReadOnly]
     filter_backends = [filters.DjangoFilterBackend]
     
+    @method_decorator(csrf_exempt)
     def get_queryset(self):
         queryset = Place.objects.all()
 
