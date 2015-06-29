@@ -26,7 +26,6 @@ class PlaceViewSet(viewsets.ModelViewSet):
     permission_classes = [IsStaffOrReadOnly]
     filter_backends = [filters.DjangoFilterBackend]
     
-    @method_decorator(csrf_exempt)
     def get_queryset(self):
         queryset = Place.objects.all()
 
