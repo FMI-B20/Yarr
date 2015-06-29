@@ -19,13 +19,14 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-@csrf_exempt
+
 class PlaceViewSet(viewsets.ModelViewSet):
     serializer_class = PlaceSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsStaffOrReadOnly]
     filter_backends = [filters.DjangoFilterBackend]
-
+    
+    @csrf_exempt
     def get_queryset(self):
         queryset = Place.objects.all()
 
